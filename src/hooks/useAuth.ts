@@ -65,10 +65,6 @@ const useAuth = create<AuthState>((set, get) => ({
     return await get().fetchUserInfo();
   },
   fetchUserInfo: async () => {
-    const tk = get().getToken();
-    if (!tk) {
-      throw new Error("请先登录");
-    }
     const res = await userIpi.userGetUserInfoPost({
       data: {},
     });

@@ -34,7 +34,6 @@ export * from './ModelsMessageModel';
 export * from './ModelsUserModel';
 export * from './ResCode';
 export * from './ResResponse';
-export * from './UserApiGetUserInfoRequest';
 export * from './UserApiGetUserInfoResponse';
 export * from './UserApiLoginRequest';
 export * from './UserApiLoginResponse';

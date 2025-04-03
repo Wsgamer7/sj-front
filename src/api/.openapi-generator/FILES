@@ -41,7 +41,6 @@ Models/models.MessageModel.md
 Models/models.UserModel.md
 Models/res.Code.md
 Models/res.Response.md
-Models/user_api.GetUserInfoRequest.md
 Models/user_api.GetUserInfoResponse.md
 Models/user_api.LoginRequest.md
 Models/user_api.LoginResponse.md

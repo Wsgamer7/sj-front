@@ -70,7 +70,6 @@ All URIs are relative to *http://localhost*
  - [models.UserModel](./Models/models.UserModel.md)
  - [res.Code](./Models/res.Code.md)
  - [res.Response](./Models/res.Response.md)
- - [user_api.GetUserInfoRequest](./Models/user_api.GetUserInfoRequest.md)
  - [user_api.GetUserInfoResponse](./Models/user_api.GetUserInfoResponse.md)
  - [user_api.LoginRequest](./Models/user_api.LoginRequest.md)
  - [user_api.LoginResponse](./Models/user_api.LoginResponse.md)

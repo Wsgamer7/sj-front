@@ -16,7 +16,6 @@
 import * as runtime from '../runtime';
 import type {
   FilePost200Response,
-  UserApiGetUserInfoRequest,
   UserApiLoginRequest,
   UserApiRegisterRequest,
   UserApiSetUserInfoRequest,
@@ -28,8 +27,6 @@ import type {
 import {
     FilePost200ResponseFromJSON,
     FilePost200ResponseToJSON,
-    UserApiGetUserInfoRequestFromJSON,
-    UserApiGetUserInfoRequestToJSON,
     UserApiLoginRequestFromJSON,
     UserApiLoginRequestToJSON,
     UserApiRegisterRequestFromJSON,
@@ -47,7 +44,7 @@ import {
 } from '../models/index';
 
 export interface UserGetUserInfoPostRequest {
-    data: UserApiGetUserInfoRequest;
+    data: object;
 }
 
 export interface UserLoginPostRequest {
@@ -118,7 +115,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserApiGetUserInfoRequestToJSON(requestParameters['data']),
+            body: requestParameters['data'] as any,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserGetUserInfoPost200ResponseFromJSON(jsonValue));

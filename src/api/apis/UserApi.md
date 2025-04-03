@@ -47,7 +47,7 @@ No authorization required
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **data** | [**user_api.GetUserInfoRequest**](../Models/user_api.GetUserInfoRequest.md)| 获取用户信息请求参数 | |
+| **data** | **Object**| 获取用户信息请求参数 | |
 
 ### Return type
 
