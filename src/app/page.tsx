@@ -14,8 +14,9 @@ import Image from "next/image";
 import useAuth from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { ModelsCourseModel } from "@/api/models/ModelsCourseModel";
-import { CourseApi } from "@/api";
+import { CourseApi, ModelsUserModel } from "@/api";
 import apiClient from "@/lib/apiConfig";
+import { Button } from "@/components/ui/button";
 const courseApi = new CourseApi(apiClient);
 export default function Home() {
   const [courseList, setCourseList] = useState<ModelsCourseModel[]>([]);
@@ -30,12 +31,19 @@ export default function Home() {
     };
     fetchCourseList();
   }, []);
-  return <CourseList courseList={courseList} />;
+
+  const handleCreateCourse = () => {};
+  return (
+    <div className="w-full flex flex-col gap-4 justify-center items-center">
+      <Button onClick={handleCreateCourse}>创建课程</Button>
+      <CourseList courseList={courseList} />
+    </div>
+  );
 }
 
 function CourseList({ courseList }: { courseList: ModelsCourseModel[] }) {
   return (
-    <div>
+    <div className="w-full flex gap-2 flex-wrap">
       {courseList.map((course) => (
         <SingleCourse key={course.courseID} course={course} />
       ))}
@@ -57,6 +65,11 @@ function SingleCourse({ course }: { course: ModelsCourseModel }) {
 }
 
 function CourseDetail({ course }: { course: ModelsCourseModel }) {
+  const [teacher, setTeacher] = useState<ModelsUserModel | undefined>(
+    undefined
+  );
+  const [studentList, setStudentList] = useState<ModelsUserModel[]>([]);
+  useEffect(() => {}, []);
   return (
     <div>
       <div>{course.courseName}</div>
