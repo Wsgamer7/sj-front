@@ -73,7 +73,6 @@ export default function Edit() {
 
   return (
     <div className="w-full ">
-      <Sidebar />
       {isSelectCourse && course && (
         <div className="w-full h-full bg-red-500">
           <CourseEditor initCourse={course} setCourse={setCourse} />

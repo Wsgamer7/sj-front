@@ -29,10 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen relative`}
       >
-        <div className="top-0 left-0 w-full z-50">
-          <Navbar />
-        </div>
-        <div className="w-full px-28 pt-4 box-border">{children}</div>
+        {children}
         <Init />
       </body>
     </html>
