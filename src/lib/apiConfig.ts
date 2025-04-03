@@ -15,7 +15,7 @@ function createMiddleware(
   return { pre, post, onError } as Middleware;
 }
 
-const apiDomain = "http://localhost:8080";
+const apiDomain = "http://localhost:8000";
 
 export async function clientMiddlewarePre(
   context: RequestContext
