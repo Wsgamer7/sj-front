@@ -6,6 +6,7 @@ All URIs are relative to *http://localhost*
 |------------- | ------------- | -------------|
 | [**courseCreateChapterPost**](CourseApi.md#courseCreateChapterPost) | **POST** /course/create_chapter | 创建章节 |
 | [**courseCreateCoursePost**](CourseApi.md#courseCreateCoursePost) | **POST** /course/create_course | 创建课程 |
+| [**courseGenChapterScorePost**](CourseApi.md#courseGenChapterScorePost) | **POST** /course/gen_chapter_score | 生成章节分数 |
 | [**courseGetChaptersPost**](CourseApi.md#courseGetChaptersPost) | **POST** /course/get_chapters | 获取课程章节列表 |
 | [**courseGetCoursePost**](CourseApi.md#courseGetCoursePost) | **POST** /course/get_course | 获取课程信息 |
 | [**courseGetCourseStudentsPost**](CourseApi.md#courseGetCourseStudentsPost) | **POST** /course/get_course_students | 获取课程学生信息 |
@@ -16,7 +17,7 @@ All URIs are relative to *http://localhost*
 
 <a name="courseCreateChapterPost"></a>
 # **courseCreateChapterPost**
-> _course_create_chapter_post_200_response courseCreateChapterPost(courseID, chapterName, description, difficulty, index)
+> _course_create_chapter_post_200_response courseCreateChapterPost(data)
 
 创建章节
 
@@ -26,11 +27,7 @@ All URIs are relative to *http://localhost*
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **courseID** | **Integer**| 课程ID | [default to null] |
-| **chapterName** | **String**| 章节名称 | [default to null] |
-| **description** | **String**| 章节描述 | [default to null] |
-| **difficulty** | **Integer**| 章节难度 | [default to null] |
-| **index** | **Integer**| 章节索引 | [default to null] |
+| **data** | [**course_api.CreateChapterRequest**](../Models/course_api.CreateChapterRequest.md)| 创建章节请求参数 | |
 
 ### Return type
 
@@ -42,7 +39,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 <a name="courseCreateCoursePost"></a>
@@ -64,6 +61,33 @@ No authorization required
 ### Return type
 
 [**_course_create_course_post_200_response**](../Models/_course_create_course_post_200_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+<a name="courseGenChapterScorePost"></a>
+# **courseGenChapterScorePost**
+> _course_gen_chapter_score_post_200_response courseGenChapterScorePost(chapterID)
+
+生成章节分数
+
+    生成章节分数
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **chapterID** | **Integer**| 章节ID | [default to null] |
+
+### Return type
+
+[**_course_gen_chapter_score_post_200_response**](../Models/_course_gen_chapter_score_post_200_response.md)
 
 ### Authorization
 

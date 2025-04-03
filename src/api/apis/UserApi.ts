@@ -21,6 +21,9 @@ import type {
   UserApiRegisterRequest,
   UserApiSetUserInfoRequest,
   UserGetUserInfoPost200Response,
+  UserLoginPost200Response,
+  UserRegisterPost200Response,
+  UserSetUserInfoPost200Response,
 } from '../models/index';
 import {
     FilePost200ResponseFromJSON,
@@ -35,6 +38,12 @@ import {
     UserApiSetUserInfoRequestToJSON,
     UserGetUserInfoPost200ResponseFromJSON,
     UserGetUserInfoPost200ResponseToJSON,
+    UserLoginPost200ResponseFromJSON,
+    UserLoginPost200ResponseToJSON,
+    UserRegisterPost200ResponseFromJSON,
+    UserRegisterPost200ResponseToJSON,
+    UserSetUserInfoPost200ResponseFromJSON,
+    UserSetUserInfoPost200ResponseToJSON,
 } from '../models/index';
 
 export interface UserGetUserInfoPostRequest {
@@ -128,7 +137,7 @@ export class UserApi extends runtime.BaseAPI {
      * 登录
      * 登录
      */
-    async userLoginPostRaw(requestParameters: UserLoginPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FilePost200Response>> {
+    async userLoginPostRaw(requestParameters: UserLoginPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserLoginPost200Response>> {
         if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
                 'data',
@@ -150,14 +159,14 @@ export class UserApi extends runtime.BaseAPI {
             body: UserApiLoginRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => FilePost200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserLoginPost200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 登录
      * 登录
      */
-    async userLoginPost(requestParameters: UserLoginPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FilePost200Response> {
+    async userLoginPost(requestParameters: UserLoginPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserLoginPost200Response> {
         const response = await this.userLoginPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -166,7 +175,7 @@ export class UserApi extends runtime.BaseAPI {
      * 注册
      * 注册
      */
-    async userRegisterPostRaw(requestParameters: UserRegisterPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FilePost200Response>> {
+    async userRegisterPostRaw(requestParameters: UserRegisterPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserRegisterPost200Response>> {
         if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
                 'data',
@@ -188,14 +197,14 @@ export class UserApi extends runtime.BaseAPI {
             body: UserApiRegisterRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => FilePost200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserRegisterPost200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 注册
      * 注册
      */
-    async userRegisterPost(requestParameters: UserRegisterPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FilePost200Response> {
+    async userRegisterPost(requestParameters: UserRegisterPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserRegisterPost200Response> {
         const response = await this.userRegisterPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -204,7 +213,7 @@ export class UserApi extends runtime.BaseAPI {
      * 设置用户信息
      * 设置用户信息
      */
-    async userSetUserInfoPostRaw(requestParameters: UserSetUserInfoPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FilePost200Response>> {
+    async userSetUserInfoPostRaw(requestParameters: UserSetUserInfoPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserSetUserInfoPost200Response>> {
         if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
                 'data',
@@ -226,14 +235,14 @@ export class UserApi extends runtime.BaseAPI {
             body: UserApiSetUserInfoRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => FilePost200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserSetUserInfoPost200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 设置用户信息
      * 设置用户信息
      */
-    async userSetUserInfoPost(requestParameters: UserSetUserInfoPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FilePost200Response> {
+    async userSetUserInfoPost(requestParameters: UserSetUserInfoPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserSetUserInfoPost200Response> {
         const response = await this.userSetUserInfoPostRaw(requestParameters, initOverrides);
         return await response.value();
     }

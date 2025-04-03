@@ -15,8 +15,10 @@
 
 import * as runtime from '../runtime';
 import type {
+  CourseApiCreateChapterRequest,
   CourseCreateChapterPost200Response,
   CourseCreateCoursePost200Response,
+  CourseGenChapterScorePost200Response,
   CourseGetChaptersPost200Response,
   CourseGetCoursePost200Response,
   CourseGetCourseStudentsPost200Response,
@@ -25,10 +27,14 @@ import type {
   CourseScanCoursePost200Response,
 } from '../models/index';
 import {
+    CourseApiCreateChapterRequestFromJSON,
+    CourseApiCreateChapterRequestToJSON,
     CourseCreateChapterPost200ResponseFromJSON,
     CourseCreateChapterPost200ResponseToJSON,
     CourseCreateCoursePost200ResponseFromJSON,
     CourseCreateCoursePost200ResponseToJSON,
+    CourseGenChapterScorePost200ResponseFromJSON,
+    CourseGenChapterScorePost200ResponseToJSON,
     CourseGetChaptersPost200ResponseFromJSON,
     CourseGetChaptersPost200ResponseToJSON,
     CourseGetCoursePost200ResponseFromJSON,
@@ -44,17 +50,17 @@ import {
 } from '../models/index';
 
 export interface CourseCreateChapterPostRequest {
-    courseID: number;
-    chapterName: string;
-    description: string;
-    difficulty: number;
-    index: number;
+    data: CourseApiCreateChapterRequest;
 }
 
 export interface CourseCreateCoursePostRequest {
     userID: number;
     courseName: string;
     description: string;
+}
+
+export interface CourseGenChapterScorePostRequest {
+    chapterID: number;
 }
 
 export interface CourseGetChaptersPostRequest {
@@ -88,70 +94,25 @@ export class CourseApi extends runtime.BaseAPI {
      * 创建章节
      */
     async courseCreateChapterPostRaw(requestParameters: CourseCreateChapterPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseCreateChapterPost200Response>> {
-        if (requestParameters['courseID'] == null) {
+        if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
-                'courseID',
-                'Required parameter "courseID" was null or undefined when calling courseCreateChapterPost().'
-            );
-        }
-
-        if (requestParameters['chapterName'] == null) {
-            throw new runtime.RequiredError(
-                'chapterName',
-                'Required parameter "chapterName" was null or undefined when calling courseCreateChapterPost().'
-            );
-        }
-
-        if (requestParameters['description'] == null) {
-            throw new runtime.RequiredError(
-                'description',
-                'Required parameter "description" was null or undefined when calling courseCreateChapterPost().'
-            );
-        }
-
-        if (requestParameters['difficulty'] == null) {
-            throw new runtime.RequiredError(
-                'difficulty',
-                'Required parameter "difficulty" was null or undefined when calling courseCreateChapterPost().'
-            );
-        }
-
-        if (requestParameters['index'] == null) {
-            throw new runtime.RequiredError(
-                'index',
-                'Required parameter "index" was null or undefined when calling courseCreateChapterPost().'
+                'data',
+                'Required parameter "data" was null or undefined when calling courseCreateChapterPost().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['courseID'] != null) {
-            queryParameters['courseID'] = requestParameters['courseID'];
-        }
-
-        if (requestParameters['chapterName'] != null) {
-            queryParameters['chapterName'] = requestParameters['chapterName'];
-        }
-
-        if (requestParameters['description'] != null) {
-            queryParameters['description'] = requestParameters['description'];
-        }
-
-        if (requestParameters['difficulty'] != null) {
-            queryParameters['difficulty'] = requestParameters['difficulty'];
-        }
-
-        if (requestParameters['index'] != null) {
-            queryParameters['index'] = requestParameters['index'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/course/create_chapter`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: CourseApiCreateChapterRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CourseCreateChapterPost200ResponseFromJSON(jsonValue));
@@ -224,6 +185,45 @@ export class CourseApi extends runtime.BaseAPI {
      */
     async courseCreateCoursePost(requestParameters: CourseCreateCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseCreateCoursePost200Response> {
         const response = await this.courseCreateCoursePostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 生成章节分数
+     * 生成章节分数
+     */
+    async courseGenChapterScorePostRaw(requestParameters: CourseGenChapterScorePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseGenChapterScorePost200Response>> {
+        if (requestParameters['chapterID'] == null) {
+            throw new runtime.RequiredError(
+                'chapterID',
+                'Required parameter "chapterID" was null or undefined when calling courseGenChapterScorePost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['chapterID'] != null) {
+            queryParameters['chapterID'] = requestParameters['chapterID'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/course/gen_chapter_score`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CourseGenChapterScorePost200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 生成章节分数
+     * 生成章节分数
+     */
+    async courseGenChapterScorePost(requestParameters: CourseGenChapterScorePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseGenChapterScorePost200Response> {
+        const response = await this.courseGenChapterScorePostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

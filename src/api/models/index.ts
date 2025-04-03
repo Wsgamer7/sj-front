@@ -1,8 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './CourseApiCourseUserInfo';
+export * from './CourseApiCreateChapterRequest';
 export * from './CourseApiCreateChapterResponse';
 export * from './CourseApiCreateCourseResponse';
+export * from './CourseApiGenChapterScoreResponse';
 export * from './CourseApiGetChaptersResponse';
 export * from './CourseApiGetCourseResponse';
 export * from './CourseApiGetCourseStudentsResponse';
@@ -10,6 +12,7 @@ export * from './CourseApiScanAllCourseResponse';
 export * from './CourseApiScanCourseResponse';
 export * from './CourseCreateChapterPost200Response';
 export * from './CourseCreateCoursePost200Response';
+export * from './CourseGenChapterScorePost200Response';
 export * from './CourseGetChaptersPost200Response';
 export * from './CourseGetCoursePost200Response';
 export * from './CourseGetCourseStudentsPost200Response';
@@ -34,6 +37,12 @@ export * from './ResResponse';
 export * from './UserApiGetUserInfoRequest';
 export * from './UserApiGetUserInfoResponse';
 export * from './UserApiLoginRequest';
+export * from './UserApiLoginResponse';
 export * from './UserApiRegisterRequest';
+export * from './UserApiRegisterResponse';
 export * from './UserApiSetUserInfoRequest';
+export * from './UserApiSetUserInfoResponse';
 export * from './UserGetUserInfoPost200Response';
+export * from './UserLoginPost200Response';
+export * from './UserRegisterPost200Response';
+export * from './UserSetUserInfoPost200Response';

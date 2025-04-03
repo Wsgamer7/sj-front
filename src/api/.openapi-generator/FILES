@@ -5,6 +5,7 @@ Apis/MessageApi.md
 Apis/UserApi.md
 Models/_course_create_chapter_post_200_response.md
 Models/_course_create_course_post_200_response.md
+Models/_course_gen_chapter_score_post_200_response.md
 Models/_course_get_chapters_post_200_response.md
 Models/_course_get_course_post_200_response.md
 Models/_course_get_course_students_post_200_response.md
@@ -16,9 +17,14 @@ Models/_image_get_200_response.md
 Models/_message_get_history_msg_post_200_response.md
 Models/_message_send_msg_post_200_response.md
 Models/_user_get_user_info_post_200_response.md
+Models/_user_login_post_200_response.md
+Models/_user_register_post_200_response.md
+Models/_user_set_user_info_post_200_response.md
 Models/course_api.CourseUserInfo.md
+Models/course_api.CreateChapterRequest.md
 Models/course_api.CreateChapterResponse.md
 Models/course_api.CreateCourseResponse.md
+Models/course_api.GenChapterScoreResponse.md
 Models/course_api.GetChaptersResponse.md
 Models/course_api.GetCourseResponse.md
 Models/course_api.GetCourseStudentsResponse.md
@@ -38,6 +44,9 @@ Models/res.Response.md
 Models/user_api.GetUserInfoRequest.md
 Models/user_api.GetUserInfoResponse.md
 Models/user_api.LoginRequest.md
+Models/user_api.LoginResponse.md
 Models/user_api.RegisterRequest.md
+Models/user_api.RegisterResponse.md
 Models/user_api.SetUserInfoRequest.md
+Models/user_api.SetUserInfoResponse.md
 README.md

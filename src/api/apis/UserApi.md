@@ -64,7 +64,7 @@ No authorization required
 
 <a name="userLoginPost"></a>
 # **userLoginPost**
-> _file_post_200_response userLoginPost(data)
+> _user_login_post_200_response userLoginPost(data)
 
 登录
 
@@ -78,7 +78,7 @@ No authorization required
 
 ### Return type
 
-[**_file_post_200_response**](../Models/_file_post_200_response.md)
+[**_user_login_post_200_response**](../Models/_user_login_post_200_response.md)
 
 ### Authorization
 
@@ -91,7 +91,7 @@ No authorization required
 
 <a name="userRegisterPost"></a>
 # **userRegisterPost**
-> _file_post_200_response userRegisterPost(data)
+> _user_register_post_200_response userRegisterPost(data)
 
 注册
 
@@ -105,7 +105,7 @@ No authorization required
 
 ### Return type
 
-[**_file_post_200_response**](../Models/_file_post_200_response.md)
+[**_user_register_post_200_response**](../Models/_user_register_post_200_response.md)
 
 ### Authorization
 
@@ -118,7 +118,7 @@ No authorization required
 
 <a name="userSetUserInfoPost"></a>
 # **userSetUserInfoPost**
-> _file_post_200_response userSetUserInfoPost(data)
+> _user_set_user_info_post_200_response userSetUserInfoPost(data)
 
 设置用户信息
 
@@ -132,7 +132,7 @@ No authorization required
 
 ### Return type
 
-[**_file_post_200_response**](../Models/_file_post_200_response.md)
+[**_user_set_user_info_post_200_response**](../Models/_user_set_user_info_post_200_response.md)
 
 ### Authorization
 
