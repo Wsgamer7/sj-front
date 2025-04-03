@@ -26,6 +26,7 @@ interface AuthState {
   setUserInfo: (userInfo: useInfo) => void;
   postUserInfo: () => Promise<void>;
   fetchUserInfo: () => Promise<void>;
+  isLogin: () => boolean;
 }
 
 const useAuth = create<AuthState>((set, get) => ({
@@ -109,6 +110,10 @@ const useAuth = create<AuthState>((set, get) => ({
     if (res.code) {
       throw new Error("设置用户信息失败");
     }
+  },
+  isLogin: () => {
+    const tk = get().getToken();
+    return tk ? true : false;
   },
 }));
 export default useAuth;
