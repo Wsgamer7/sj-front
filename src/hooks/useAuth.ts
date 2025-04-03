@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { UserApi } from "@/api";
 import apiClient from "@/lib/apiConfig";
 const userIpi = new UserApi(apiClient);
-type useInfo = {
+export type useInfo = {
   username: string;
   userId: string;
   role: Role;
@@ -11,7 +11,7 @@ type useInfo = {
   tel?: string;
 };
 
-enum Role {
+export enum Role {
   TEACHER = 1,
   STUDENT = 2,
 }
@@ -25,9 +25,10 @@ interface AuthState {
   logout: () => Promise<void>;
   setUserInfo: (userInfo: useInfo) => void;
   postUserInfo: () => Promise<void>;
+  fetchUserInfo: () => Promise<void>;
 }
 
-const useAuth = create<AuthState>((set) => ({
+const useAuth = create<AuthState>((set, get) => ({
   userInfo: undefined,
   setToken: (token) => {
     localStorage.setItem("tk", token);
@@ -36,6 +37,82 @@ const useAuth = create<AuthState>((set) => ({
     const tk = localStorage.getItem("tk");
     return tk ?? undefined;
   },
+  register: async (userId, password, role) => {
+    const res = await userIpi.userRegisterPost({
+      data: {
+        userID: userId,
+        password,
+        role,
+      },
+    });
+    if (res.code) {
+      throw new Error("注册失败");
+    }
+    localStorage.setItem("tk", res?.data?.response || "");
+    return await get().fetchUserInfo();
+  },
+  login: async (userId, password) => {
+    const res = await userIpi.userLoginPost({
+      data: {
+        userID: userId,
+        password,
+      },
+    });
+    if (res.code) {
+      throw new Error("登录失败");
+    }
+    localStorage.setItem("tk", res?.data?.token || "");
+    return await get().fetchUserInfo();
+  },
+  fetchUserInfo: async () => {
+    const tk = get().getToken();
+    if (!tk) {
+      throw new Error("请先登录");
+    }
+    const res = await userIpi.userGetUserInfoPost({
+      data: {},
+    });
+    if (res.code) {
+      throw new Error("获取用户信息失败");
+    }
+    const data = res.data;
+    const userInfo: useInfo = {
+      username: data?.userInfo?.nickname || "",
+      userId: data?.userInfo?.userID || "",
+      role: data?.userInfo?.role || Role.STUDENT,
+      avatar: data?.userInfo?.avatar || "",
+      email: data?.userInfo?.email || "",
+      tel: data?.userInfo?.tel || "",
+    };
+    set({ userInfo });
+  },
+  logout: async () => {
+    localStorage.removeItem("tk");
+    set({ userInfo: undefined });
+  },
+  setUserInfo: (userInfo) => {
+    set({ userInfo });
+  },
+  postUserInfo: async () => {
+    const tk = get().getToken();
+    if (!tk) {
+      throw new Error("请先登录");
+    }
+    const userInfo = get().userInfo;
+    const res = await userIpi.userSetUserInfoPost({
+      data: {
+        userInfo: {
+          userID: userInfo?.userId,
+          nickname: userInfo?.username,
+          avatar: userInfo?.avatar,
+          email: userInfo?.email,
+          tel: userInfo?.tel,
+        },
+      },
+    });
+    if (res.code) {
+      throw new Error("设置用户信息失败");
+    }
+  },
 }));
-
 export default useAuth;
