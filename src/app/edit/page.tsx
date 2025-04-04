@@ -43,6 +43,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
+import Navbar from "@/components/Navbar";
 export default function Edit() {
   const searchParams = useSearchParams();
   const courseId = searchParams.get("courseId");
@@ -64,9 +65,11 @@ export default function Edit() {
         }
         deleteChapter={useCourseData.deleteChapter}
       />
-      <main className="w-full ">
-        <SidebarTrigger />
-        <div className="p-5 px-6">
+      <main className="relative w-full flex flex-col">
+        <div className="absolute top-0 left-0 w-full bg-white">
+          <Navbar />
+        </div>
+        <div className="p-5 px-6" style={{ paddingTop: "100px" }}>
           {useCourseData.isSelectCourse && useCourseData.course && (
             <div className="w-full h-full">
               <CourseEditor

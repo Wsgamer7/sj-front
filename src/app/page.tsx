@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Navbar from "@/components/Navbar";
 const courseApi = new CourseApi(apiClient);
 const userApi = new UserApi(apiClient);
 export default function Home() {
@@ -55,11 +56,16 @@ export default function Home() {
     router.push(`/edit?courseId=${newCourseId}`);
   };
   return (
-    <div className="w-full p-16 flex flex-col gap-11 justify-center items-center">
-      <Button size="lg" onClick={handleCreateCourse}>
-        创建课程
-      </Button>
-      <CourseList courseList={courseList} />
+    <div className="w-full px-16 ">
+      <div className="w-full fixed top-0 left-0">
+        <Navbar />
+      </div>
+      <div className=" w-full mt-24 flex flex-col gap-11 justify-center items-center">
+        <Button size="lg" onClick={handleCreateCourse}>
+          创建课程
+        </Button>
+        <CourseList courseList={courseList} />
+      </div>
     </div>
   );
 }
