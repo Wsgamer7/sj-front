@@ -1,12 +1,14 @@
 "use client";
 import { useEffect } from "react";
 import useAuth from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 export default function Init() {
-  const { fetchUserInfo, getToken } = useAuth();
+  const { fetchUserInfo, isLogin } = useAuth();
+  const router = useRouter();
   useEffect(() => {
-    const tk = getToken();
-    if (!tk) {
+    if (!isLogin()) {
+      router.push("/login");
       return;
     }
     fetchUserInfo();
