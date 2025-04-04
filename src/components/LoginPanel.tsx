@@ -44,8 +44,17 @@ export function LoginPanel() {
 function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const userAuth = useAuth();
+  const router = useRouter();
   const handleLogin = () => {
-    console.log(username, password);
+    userAuth
+      .login(username, password)
+      .then((res) => {
+        router.push("/");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
   };
   return (
     <Card>
@@ -65,6 +74,7 @@ function LoginForm() {
         <div className="space-y-1">
           <Label htmlFor="password">密码</Label>
           <Input
+            type="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

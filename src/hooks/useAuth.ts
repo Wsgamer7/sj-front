@@ -49,7 +49,7 @@ const useAuth = create<AuthState>((set, get) => ({
     if (res.code) {
       throw new Error("注册失败");
     }
-    localStorage.setItem("tk", res?.data?.response || "");
+    localStorage.setItem("tk", res?.data?.token || "");
   },
   login: async (userId, password) => {
     const res = await userIpi.userLoginPost({
