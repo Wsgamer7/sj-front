@@ -166,12 +166,17 @@ export default function useCourse(
     setChapterIndexToScore(newChapterIndexToScore);
   };
   const genNowCourseScore = async () => {
-    courseApi.courseGenCourseFinishPost({
+    const res = await courseApi.courseGenCourseFinishPost({
       data: {
         courseID: course?.courseID,
         userID: Number(useAuthData.userInfo?.userId || 0),
       },
     });
+    if (res.code) {
+      toast.error(res.msg);
+      return;
+    }
+    toast.success("课程完成");
   };
 
   return {
