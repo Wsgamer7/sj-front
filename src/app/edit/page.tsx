@@ -5,7 +5,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { CourseApi } from "@/api";
 import apiClient from "@/lib/apiConfig";
-import { Sidebar } from "@/components/ui/sidebar";
+import {
+  Sidebar,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 const courseApi = new CourseApi(apiClient);
 
 import { z } from "zod";
@@ -21,72 +25,43 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { AppSidebar } from "@/components/app-sidebar";
+import useCourse from "@/hooks/useCourse";
 
 export default function Edit() {
   const searchParams = useSearchParams();
   const courseId = searchParams.get("courseId");
-  const [course, setCourse] = useState<ModelsCourseModel>();
-  const [isSelectCourse, setIsSelectCourse] = useState<boolean>(true);
-
-  const [chapters, setChapters] = useState<ModelsChapterModel[]>([]);
-  const [selectedChapterIndex, setSelectedChapterIndex] = useState<number>(0);
-  const selectedChapter = chapters[selectedChapterIndex];
-  useEffect(() => {
-    if (!courseId) {
-      return;
-    }
-    const fetchCourse = async () => {
-      const res = await courseApi.courseGetCoursePost({
-        courseID: Number(courseId),
-      });
-      setCourse(res.data?.course);
-    };
-    const fetchChapters = async () => {
-      const res = await courseApi.courseGetChaptersPost({
-        courseID: Number(courseId),
-      });
-      setChapters(res.data?.chapters || []);
-    };
-    fetchCourse();
-    fetchChapters();
-  }, []);
-
-  const createEmptyChapter = () => {
-    const newChapter = {
-      chapterID: undefined,
-      chapterName: "",
-      description: "",
-    };
-    setChapters([...chapters, newChapter]);
-    setSelectedChapterIndex(chapters.length);
-  };
-
-  const handleSetChapter = (chapter: ModelsChapterModel) => {
-    const newChapters = chapters.map((oldChapter) => {
-      if (oldChapter.chapterID === chapter.chapterID) {
-        return chapter;
-      }
-      return oldChapter;
-    });
-    setChapters(newChapters);
-  };
-
+  const useCourseData = useCourse(courseId ?? undefined);
   return (
-    <div className="w-full ">
-      {isSelectCourse && course && (
-        <div className="w-full h-full bg-red-500">
-          <CourseEditor initCourse={course} setCourse={setCourse} />
+    <SidebarProvider>
+      <AppSidebar
+        course={useCourseData.course}
+        chapters={useCourseData.chapters}
+        selectedChapterIndex={useCourseData.selectedChapterIndex}
+        setSelectedChapterIndex={useCourseData.setSelectedChapterIndex}
+      />
+      <main className="w-full ">
+        <SidebarTrigger />
+        <div>
+          {useCourseData.isSelectCourse && useCourseData.course && (
+            <div className="w-full h-full bg-red-500">
+              <CourseEditor
+                initCourse={useCourseData.course}
+                setCourse={useCourseData.setCourse}
+              />
+            </div>
+          )}
+          {!useCourseData.isSelectCourse && useCourseData.selectedChapter && (
+            <div className="w-full h-full bg-blue-500">
+              <ChapterEdit
+                initChapter={useCourseData.selectedChapter}
+                setChapter={useCourseData.updateSelectedChapter}
+              />
+            </div>
+          )}
         </div>
-      )}
-      {!isSelectCourse && selectedChapter && (
-        <div className="w-full h-full bg-blue-500">
-          <ChapterEdit
-            initChapter={selectedChapter}
-            setChapter={handleSetChapter}
-          />
-        </div>
-      )}
-    </div>
+      </main>
+    </SidebarProvider>
   );
 }
 
