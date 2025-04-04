@@ -20,13 +20,22 @@ export default function Chat() {
 
   const [chatMeta, setChatMeta] = useState<ChatMeta | undefined>(undefined);
   const { messages, sendMessage } = useMessages(chatMeta?.chatId);
+  const handleSelectChapter = (chapterIndex: number) => {
+    useCourseData.setSelectedChapterIndex(chapterIndex);
+    //换成真的接口
+    setChatMeta({
+      courseId: courseId ?? "",
+      chapterId: chapterIndex,
+      chatId: "",
+    });
+  };
   return (
     <SidebarProvider>
       <AppSidebar
         course={useCourseData.course}
         chapters={useCourseData.chapters}
         selectedChapterIndex={useCourseData.selectedChapterIndex}
-        setSelectedChapterIndex={useCourseData.setSelectedChapterIndex}
+        setSelectedChapterIndex={handleSelectChapter}
       />
       <main className="w-full ">
         <SidebarTrigger />
