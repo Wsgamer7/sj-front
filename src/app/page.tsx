@@ -23,9 +23,12 @@ import {
 import apiClient from "@/lib/apiConfig";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 const courseApi = new CourseApi(apiClient);
 const userApi = new UserApi(apiClient);
 export default function Home() {
+  const router = useRouter();
   const [courseList, setCourseList] = useState<ModelsCourseModel[]>([]);
   useEffect(() => {
     const fetchCourseList = async () => {
@@ -40,7 +43,17 @@ export default function Home() {
     fetchCourseList();
   }, []);
 
-  const handleCreateCourse = () => {};
+  const handleCreateCourse = async () => {
+    const res = await courseApi.courseCreateCoursePost({
+      data: {},
+    });
+    const newCourseId = res.data?.courseID;
+    if (!newCourseId) {
+      toast.error("创建课程失败");
+      return;
+    }
+    router.push(`/course/${newCourseId}`);
+  };
   return (
     <div className="w-full p-16 flex flex-col gap-11 justify-center items-center">
       <Button size="lg" onClick={handleCreateCourse}>
