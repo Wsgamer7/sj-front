@@ -10,7 +10,7 @@ All URIs are relative to *http://localhost*
 
 <a name="messageGetHistoryMsgPost"></a>
 # **messageGetHistoryMsgPost**
-> _message_get_history_msg_post_200_response messageGetHistoryMsgPost(userID, courseID, chapterID)
+> _message_get_history_msg_post_200_response messageGetHistoryMsgPost(data)
 
 获取历史消息
 
@@ -20,9 +20,7 @@ All URIs are relative to *http://localhost*
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **userID** | **Integer**| 用户ID | [default to null] |
-| **courseID** | **Integer**| 课程ID | [default to null] |
-| **chapterID** | **Integer**| 章节ID | [default to null] |
+| **data** | [**message_api.GetHistoryMsgRequest**](../Models/message_api.GetHistoryMsgRequest.md)| 获取历史消息请求参数 | |
 
 ### Return type
 
@@ -34,12 +32,12 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 <a name="messageSendMsgPost"></a>
 # **messageSendMsgPost**
-> _message_send_msg_post_200_response messageSendMsgPost(userID, courseID, chapterID, content)
+> _message_send_msg_post_200_response messageSendMsgPost(data)
 
 发送消息
 
@@ -49,10 +47,7 @@ No authorization required
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **userID** | **Integer**| 用户ID | [default to null] |
-| **courseID** | **Integer**| 课程ID | [default to null] |
-| **chapterID** | **Integer**| 章节ID | [default to null] |
-| **content** | **String**| 消息内容 | [default to null] |
+| **data** | [**message_api.SendMsgRequest**](../Models/message_api.SendMsgRequest.md)| 发送消息请求参数 | |
 
 ### Return type
 
@@ -64,6 +59,6 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

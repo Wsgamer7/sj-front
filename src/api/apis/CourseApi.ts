@@ -16,25 +16,74 @@
 import * as runtime from '../runtime';
 import type {
   CourseApiCreateChapterRequest,
+  CourseApiCreateCourseRequest,
+  CourseApiDeleteChapterRequest,
+  CourseApiFinishCourseRequest,
+  CourseApiGenChapterScoreRequest,
+  CourseApiGenCourseFinishRequest,
+  CourseApiGetChapterByIDRequest,
+  CourseApiGetChaptersRequest,
+  CourseApiGetCourseRequest,
+  CourseApiGetCourseStudentsRequest,
+  CourseApiJoinCourseRequest,
+  CourseApiScanCourseRequest,
+  CourseApiUpdateCourseRequest,
   CourseCreateChapterPost200Response,
   CourseCreateCoursePost200Response,
+  CourseDeleteChapterPost200Response,
+  CourseFinishCoursePost200Response,
   CourseGenChapterScorePost200Response,
+  CourseGenCourseFinishPost200Response,
+  CourseGetChapterByIdPost200Response,
   CourseGetChaptersPost200Response,
   CourseGetCoursePost200Response,
   CourseGetCourseStudentsPost200Response,
   CourseJoinCoursePost200Response,
   CourseScanAllCoursePost200Response,
   CourseScanCoursePost200Response,
+  CourseUpdateCoursePost200Response,
 } from '../models/index';
 import {
     CourseApiCreateChapterRequestFromJSON,
     CourseApiCreateChapterRequestToJSON,
+    CourseApiCreateCourseRequestFromJSON,
+    CourseApiCreateCourseRequestToJSON,
+    CourseApiDeleteChapterRequestFromJSON,
+    CourseApiDeleteChapterRequestToJSON,
+    CourseApiFinishCourseRequestFromJSON,
+    CourseApiFinishCourseRequestToJSON,
+    CourseApiGenChapterScoreRequestFromJSON,
+    CourseApiGenChapterScoreRequestToJSON,
+    CourseApiGenCourseFinishRequestFromJSON,
+    CourseApiGenCourseFinishRequestToJSON,
+    CourseApiGetChapterByIDRequestFromJSON,
+    CourseApiGetChapterByIDRequestToJSON,
+    CourseApiGetChaptersRequestFromJSON,
+    CourseApiGetChaptersRequestToJSON,
+    CourseApiGetCourseRequestFromJSON,
+    CourseApiGetCourseRequestToJSON,
+    CourseApiGetCourseStudentsRequestFromJSON,
+    CourseApiGetCourseStudentsRequestToJSON,
+    CourseApiJoinCourseRequestFromJSON,
+    CourseApiJoinCourseRequestToJSON,
+    CourseApiScanCourseRequestFromJSON,
+    CourseApiScanCourseRequestToJSON,
+    CourseApiUpdateCourseRequestFromJSON,
+    CourseApiUpdateCourseRequestToJSON,
     CourseCreateChapterPost200ResponseFromJSON,
     CourseCreateChapterPost200ResponseToJSON,
     CourseCreateCoursePost200ResponseFromJSON,
     CourseCreateCoursePost200ResponseToJSON,
+    CourseDeleteChapterPost200ResponseFromJSON,
+    CourseDeleteChapterPost200ResponseToJSON,
+    CourseFinishCoursePost200ResponseFromJSON,
+    CourseFinishCoursePost200ResponseToJSON,
     CourseGenChapterScorePost200ResponseFromJSON,
     CourseGenChapterScorePost200ResponseToJSON,
+    CourseGenCourseFinishPost200ResponseFromJSON,
+    CourseGenCourseFinishPost200ResponseToJSON,
+    CourseGetChapterByIdPost200ResponseFromJSON,
+    CourseGetChapterByIdPost200ResponseToJSON,
     CourseGetChaptersPost200ResponseFromJSON,
     CourseGetChaptersPost200ResponseToJSON,
     CourseGetCoursePost200ResponseFromJSON,
@@ -47,6 +96,8 @@ import {
     CourseScanAllCoursePost200ResponseToJSON,
     CourseScanCoursePost200ResponseFromJSON,
     CourseScanCoursePost200ResponseToJSON,
+    CourseUpdateCoursePost200ResponseFromJSON,
+    CourseUpdateCoursePost200ResponseToJSON,
 } from '../models/index';
 
 export interface CourseCreateChapterPostRequest {
@@ -54,34 +105,55 @@ export interface CourseCreateChapterPostRequest {
 }
 
 export interface CourseCreateCoursePostRequest {
-    userID: number;
-    courseName: string;
-    description: string;
+    data: CourseApiCreateCourseRequest;
+}
+
+export interface CourseDeleteChapterPostRequest {
+    data: CourseApiDeleteChapterRequest;
+}
+
+export interface CourseFinishCoursePostRequest {
+    data: CourseApiFinishCourseRequest;
 }
 
 export interface CourseGenChapterScorePostRequest {
-    chapterID: number;
+    data: CourseApiGenChapterScoreRequest;
+}
+
+export interface CourseGenCourseFinishPostRequest {
+    data: CourseApiGenCourseFinishRequest;
+}
+
+export interface CourseGetChapterByIdPostRequest {
+    data: CourseApiGetChapterByIDRequest;
 }
 
 export interface CourseGetChaptersPostRequest {
-    courseID: number;
+    data: CourseApiGetChaptersRequest;
 }
 
 export interface CourseGetCoursePostRequest {
-    courseID: number;
+    data: CourseApiGetCourseRequest;
 }
 
 export interface CourseGetCourseStudentsPostRequest {
-    courseID: number;
+    data: CourseApiGetCourseStudentsRequest;
 }
 
 export interface CourseJoinCoursePostRequest {
-    userID: number;
-    courseID: number;
+    data: CourseApiJoinCourseRequest;
+}
+
+export interface CourseScanAllCoursePostRequest {
+    data: object;
 }
 
 export interface CourseScanCoursePostRequest {
-    userID: number;
+    data: CourseApiScanCourseRequest;
+}
+
+export interface CourseUpdateCoursePostRequest {
+    data: CourseApiUpdateCourseRequest;
 }
 
 /**
@@ -132,48 +204,25 @@ export class CourseApi extends runtime.BaseAPI {
      * 创建课程
      */
     async courseCreateCoursePostRaw(requestParameters: CourseCreateCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseCreateCoursePost200Response>> {
-        if (requestParameters['userID'] == null) {
+        if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
-                'userID',
-                'Required parameter "userID" was null or undefined when calling courseCreateCoursePost().'
-            );
-        }
-
-        if (requestParameters['courseName'] == null) {
-            throw new runtime.RequiredError(
-                'courseName',
-                'Required parameter "courseName" was null or undefined when calling courseCreateCoursePost().'
-            );
-        }
-
-        if (requestParameters['description'] == null) {
-            throw new runtime.RequiredError(
-                'description',
-                'Required parameter "description" was null or undefined when calling courseCreateCoursePost().'
+                'data',
+                'Required parameter "data" was null or undefined when calling courseCreateCoursePost().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['userID'] != null) {
-            queryParameters['userID'] = requestParameters['userID'];
-        }
-
-        if (requestParameters['courseName'] != null) {
-            queryParameters['courseName'] = requestParameters['courseName'];
-        }
-
-        if (requestParameters['description'] != null) {
-            queryParameters['description'] = requestParameters['description'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/course/create_course`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: CourseApiCreateCourseRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CourseCreateCoursePost200ResponseFromJSON(jsonValue));
@@ -189,30 +238,105 @@ export class CourseApi extends runtime.BaseAPI {
     }
 
     /**
-     * 生成章节分数
-     * 生成章节分数
+     * 删除章节
+     * 删除章节
      */
-    async courseGenChapterScorePostRaw(requestParameters: CourseGenChapterScorePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseGenChapterScorePost200Response>> {
-        if (requestParameters['chapterID'] == null) {
+    async courseDeleteChapterPostRaw(requestParameters: CourseDeleteChapterPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseDeleteChapterPost200Response>> {
+        if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
-                'chapterID',
-                'Required parameter "chapterID" was null or undefined when calling courseGenChapterScorePost().'
+                'data',
+                'Required parameter "data" was null or undefined when calling courseDeleteChapterPost().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['chapterID'] != null) {
-            queryParameters['chapterID'] = requestParameters['chapterID'];
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/course/delete_chapter`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CourseApiDeleteChapterRequestToJSON(requestParameters['data']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CourseDeleteChapterPost200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 删除章节
+     * 删除章节
+     */
+    async courseDeleteChapterPost(requestParameters: CourseDeleteChapterPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseDeleteChapterPost200Response> {
+        const response = await this.courseDeleteChapterPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 完成课程
+     * 完成课程
+     */
+    async courseFinishCoursePostRaw(requestParameters: CourseFinishCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseFinishCoursePost200Response>> {
+        if (requestParameters['data'] == null) {
+            throw new runtime.RequiredError(
+                'data',
+                'Required parameter "data" was null or undefined when calling courseFinishCoursePost().'
+            );
         }
 
+        const queryParameters: any = {};
+
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/course/finish_course`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CourseApiFinishCourseRequestToJSON(requestParameters['data']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CourseFinishCoursePost200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 完成课程
+     * 完成课程
+     */
+    async courseFinishCoursePost(requestParameters: CourseFinishCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseFinishCoursePost200Response> {
+        const response = await this.courseFinishCoursePostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 生成章节分数
+     * 生成章节分数
+     */
+    async courseGenChapterScorePostRaw(requestParameters: CourseGenChapterScorePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseGenChapterScorePost200Response>> {
+        if (requestParameters['data'] == null) {
+            throw new runtime.RequiredError(
+                'data',
+                'Required parameter "data" was null or undefined when calling courseGenChapterScorePost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/course/gen_chapter_score`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: CourseApiGenChapterScoreRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CourseGenChapterScorePost200ResponseFromJSON(jsonValue));
@@ -228,30 +352,105 @@ export class CourseApi extends runtime.BaseAPI {
     }
 
     /**
-     * 获取课程章节列表
-     * 获取课程章节列表
+     * 生成课程完成状态
+     * 生成课程完成状态
      */
-    async courseGetChaptersPostRaw(requestParameters: CourseGetChaptersPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseGetChaptersPost200Response>> {
-        if (requestParameters['courseID'] == null) {
+    async courseGenCourseFinishPostRaw(requestParameters: CourseGenCourseFinishPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseGenCourseFinishPost200Response>> {
+        if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
-                'courseID',
-                'Required parameter "courseID" was null or undefined when calling courseGetChaptersPost().'
+                'data',
+                'Required parameter "data" was null or undefined when calling courseGenCourseFinishPost().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['courseID'] != null) {
-            queryParameters['courseID'] = requestParameters['courseID'];
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/course/gen_course_finish`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CourseApiGenCourseFinishRequestToJSON(requestParameters['data']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CourseGenCourseFinishPost200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 生成课程完成状态
+     * 生成课程完成状态
+     */
+    async courseGenCourseFinishPost(requestParameters: CourseGenCourseFinishPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseGenCourseFinishPost200Response> {
+        const response = await this.courseGenCourseFinishPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 获取章节信息
+     * 获取章节信息
+     */
+    async courseGetChapterByIdPostRaw(requestParameters: CourseGetChapterByIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseGetChapterByIdPost200Response>> {
+        if (requestParameters['data'] == null) {
+            throw new runtime.RequiredError(
+                'data',
+                'Required parameter "data" was null or undefined when calling courseGetChapterByIdPost().'
+            );
         }
 
+        const queryParameters: any = {};
+
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/course/get_chapter_by_id`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CourseApiGetChapterByIDRequestToJSON(requestParameters['data']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CourseGetChapterByIdPost200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 获取章节信息
+     * 获取章节信息
+     */
+    async courseGetChapterByIdPost(requestParameters: CourseGetChapterByIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseGetChapterByIdPost200Response> {
+        const response = await this.courseGetChapterByIdPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 获取课程章节列表
+     * 获取课程章节列表
+     */
+    async courseGetChaptersPostRaw(requestParameters: CourseGetChaptersPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseGetChaptersPost200Response>> {
+        if (requestParameters['data'] == null) {
+            throw new runtime.RequiredError(
+                'data',
+                'Required parameter "data" was null or undefined when calling courseGetChaptersPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/course/get_chapters`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: CourseApiGetChaptersRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CourseGetChaptersPost200ResponseFromJSON(jsonValue));
@@ -271,26 +470,25 @@ export class CourseApi extends runtime.BaseAPI {
      * 获取课程信息
      */
     async courseGetCoursePostRaw(requestParameters: CourseGetCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseGetCoursePost200Response>> {
-        if (requestParameters['courseID'] == null) {
+        if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
-                'courseID',
-                'Required parameter "courseID" was null or undefined when calling courseGetCoursePost().'
+                'data',
+                'Required parameter "data" was null or undefined when calling courseGetCoursePost().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['courseID'] != null) {
-            queryParameters['courseID'] = requestParameters['courseID'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/course/get_course`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: CourseApiGetCourseRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CourseGetCoursePost200ResponseFromJSON(jsonValue));
@@ -310,26 +508,25 @@ export class CourseApi extends runtime.BaseAPI {
      * 获取课程学生信息
      */
     async courseGetCourseStudentsPostRaw(requestParameters: CourseGetCourseStudentsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseGetCourseStudentsPost200Response>> {
-        if (requestParameters['courseID'] == null) {
+        if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
-                'courseID',
-                'Required parameter "courseID" was null or undefined when calling courseGetCourseStudentsPost().'
+                'data',
+                'Required parameter "data" was null or undefined when calling courseGetCourseStudentsPost().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['courseID'] != null) {
-            queryParameters['courseID'] = requestParameters['courseID'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/course/get_course_students`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: CourseApiGetCourseStudentsRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CourseGetCourseStudentsPost200ResponseFromJSON(jsonValue));
@@ -349,37 +546,25 @@ export class CourseApi extends runtime.BaseAPI {
      * 加入课程
      */
     async courseJoinCoursePostRaw(requestParameters: CourseJoinCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseJoinCoursePost200Response>> {
-        if (requestParameters['userID'] == null) {
+        if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
-                'userID',
-                'Required parameter "userID" was null or undefined when calling courseJoinCoursePost().'
-            );
-        }
-
-        if (requestParameters['courseID'] == null) {
-            throw new runtime.RequiredError(
-                'courseID',
-                'Required parameter "courseID" was null or undefined when calling courseJoinCoursePost().'
+                'data',
+                'Required parameter "data" was null or undefined when calling courseJoinCoursePost().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['userID'] != null) {
-            queryParameters['userID'] = requestParameters['userID'];
-        }
-
-        if (requestParameters['courseID'] != null) {
-            queryParameters['courseID'] = requestParameters['courseID'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/course/join_course`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: CourseApiJoinCourseRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CourseJoinCoursePost200ResponseFromJSON(jsonValue));
@@ -398,16 +583,26 @@ export class CourseApi extends runtime.BaseAPI {
      * 扫描所有课程
      * 扫描所有课程
      */
-    async courseScanAllCoursePostRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseScanAllCoursePost200Response>> {
+    async courseScanAllCoursePostRaw(requestParameters: CourseScanAllCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseScanAllCoursePost200Response>> {
+        if (requestParameters['data'] == null) {
+            throw new runtime.RequiredError(
+                'data',
+                'Required parameter "data" was null or undefined when calling courseScanAllCoursePost().'
+            );
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/course/scan_all_course`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: requestParameters['data'] as any,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CourseScanAllCoursePost200ResponseFromJSON(jsonValue));
@@ -417,8 +612,8 @@ export class CourseApi extends runtime.BaseAPI {
      * 扫描所有课程
      * 扫描所有课程
      */
-    async courseScanAllCoursePost(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseScanAllCoursePost200Response> {
-        const response = await this.courseScanAllCoursePostRaw(initOverrides);
+    async courseScanAllCoursePost(requestParameters: CourseScanAllCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseScanAllCoursePost200Response> {
+        const response = await this.courseScanAllCoursePostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -427,26 +622,25 @@ export class CourseApi extends runtime.BaseAPI {
      * 扫描课程
      */
     async courseScanCoursePostRaw(requestParameters: CourseScanCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseScanCoursePost200Response>> {
-        if (requestParameters['userID'] == null) {
+        if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
-                'userID',
-                'Required parameter "userID" was null or undefined when calling courseScanCoursePost().'
+                'data',
+                'Required parameter "data" was null or undefined when calling courseScanCoursePost().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['userID'] != null) {
-            queryParameters['userID'] = requestParameters['userID'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/course/scan_course`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: CourseApiScanCourseRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CourseScanCoursePost200ResponseFromJSON(jsonValue));
@@ -458,6 +652,44 @@ export class CourseApi extends runtime.BaseAPI {
      */
     async courseScanCoursePost(requestParameters: CourseScanCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseScanCoursePost200Response> {
         const response = await this.courseScanCoursePostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 更新课程
+     * 更新课程
+     */
+    async courseUpdateCoursePostRaw(requestParameters: CourseUpdateCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseUpdateCoursePost200Response>> {
+        if (requestParameters['data'] == null) {
+            throw new runtime.RequiredError(
+                'data',
+                'Required parameter "data" was null or undefined when calling courseUpdateCoursePost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/course/update_course`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CourseApiUpdateCourseRequestToJSON(requestParameters['data']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CourseUpdateCoursePost200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 更新课程
+     * 更新课程
+     */
+    async courseUpdateCoursePost(requestParameters: CourseUpdateCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseUpdateCoursePost200Response> {
+        const response = await this.courseUpdateCoursePostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

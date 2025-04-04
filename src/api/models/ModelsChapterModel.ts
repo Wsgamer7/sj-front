@@ -50,7 +50,7 @@ export interface ModelsChapterModel {
      */
     description?: string;
     /**
-     * 难度
+     * 难度 1 简单 2 中等 3 困难
      * @type {number}
      * @memberof ModelsChapterModel
      */

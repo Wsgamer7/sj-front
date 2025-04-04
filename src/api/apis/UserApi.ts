@@ -16,9 +16,11 @@
 import * as runtime from '../runtime';
 import type {
   FilePost200Response,
+  UserApiGetUserInfoByIdRequest,
   UserApiLoginRequest,
   UserApiRegisterRequest,
   UserApiSetUserInfoRequest,
+  UserGetUserInfoByIdPost200Response,
   UserGetUserInfoPost200Response,
   UserLoginPost200Response,
   UserRegisterPost200Response,
@@ -27,12 +29,16 @@ import type {
 import {
     FilePost200ResponseFromJSON,
     FilePost200ResponseToJSON,
+    UserApiGetUserInfoByIdRequestFromJSON,
+    UserApiGetUserInfoByIdRequestToJSON,
     UserApiLoginRequestFromJSON,
     UserApiLoginRequestToJSON,
     UserApiRegisterRequestFromJSON,
     UserApiRegisterRequestToJSON,
     UserApiSetUserInfoRequestFromJSON,
     UserApiSetUserInfoRequestToJSON,
+    UserGetUserInfoByIdPost200ResponseFromJSON,
+    UserGetUserInfoByIdPost200ResponseToJSON,
     UserGetUserInfoPost200ResponseFromJSON,
     UserGetUserInfoPost200ResponseToJSON,
     UserLoginPost200ResponseFromJSON,
@@ -42,6 +48,10 @@ import {
     UserSetUserInfoPost200ResponseFromJSON,
     UserSetUserInfoPost200ResponseToJSON,
 } from '../models/index';
+
+export interface UserGetUserInfoByIdPostRequest {
+    data: UserApiGetUserInfoByIdRequest;
+}
 
 export interface UserGetUserInfoPostRequest {
     data: object;
@@ -89,6 +99,44 @@ export class UserApi extends runtime.BaseAPI {
      */
     async logoutGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FilePost200Response> {
         const response = await this.logoutGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 获取用户信息
+     * 获取用户信息
+     */
+    async userGetUserInfoByIdPostRaw(requestParameters: UserGetUserInfoByIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserGetUserInfoByIdPost200Response>> {
+        if (requestParameters['data'] == null) {
+            throw new runtime.RequiredError(
+                'data',
+                'Required parameter "data" was null or undefined when calling userGetUserInfoByIdPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/user/get_user_info_by_id`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UserApiGetUserInfoByIdRequestToJSON(requestParameters['data']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserGetUserInfoByIdPost200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 获取用户信息
+     * 获取用户信息
+     */
+    async userGetUserInfoByIdPost(requestParameters: UserGetUserInfoByIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserGetUserInfoByIdPost200Response> {
+        const response = await this.userGetUserInfoByIdPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

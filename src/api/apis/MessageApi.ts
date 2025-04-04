@@ -15,10 +15,16 @@
 
 import * as runtime from '../runtime';
 import type {
+  MessageApiGetHistoryMsgRequest,
+  MessageApiSendMsgRequest,
   MessageGetHistoryMsgPost200Response,
   MessageSendMsgPost200Response,
 } from '../models/index';
 import {
+    MessageApiGetHistoryMsgRequestFromJSON,
+    MessageApiGetHistoryMsgRequestToJSON,
+    MessageApiSendMsgRequestFromJSON,
+    MessageApiSendMsgRequestToJSON,
     MessageGetHistoryMsgPost200ResponseFromJSON,
     MessageGetHistoryMsgPost200ResponseToJSON,
     MessageSendMsgPost200ResponseFromJSON,
@@ -26,16 +32,11 @@ import {
 } from '../models/index';
 
 export interface MessageGetHistoryMsgPostRequest {
-    userID: number;
-    courseID: number;
-    chapterID: number;
+    data: MessageApiGetHistoryMsgRequest;
 }
 
 export interface MessageSendMsgPostRequest {
-    userID: number;
-    courseID: number;
-    chapterID: number;
-    content: string;
+    data: MessageApiSendMsgRequest;
 }
 
 /**
@@ -48,48 +49,25 @@ export class MessageApi extends runtime.BaseAPI {
      * 获取历史消息
      */
     async messageGetHistoryMsgPostRaw(requestParameters: MessageGetHistoryMsgPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MessageGetHistoryMsgPost200Response>> {
-        if (requestParameters['userID'] == null) {
+        if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
-                'userID',
-                'Required parameter "userID" was null or undefined when calling messageGetHistoryMsgPost().'
-            );
-        }
-
-        if (requestParameters['courseID'] == null) {
-            throw new runtime.RequiredError(
-                'courseID',
-                'Required parameter "courseID" was null or undefined when calling messageGetHistoryMsgPost().'
-            );
-        }
-
-        if (requestParameters['chapterID'] == null) {
-            throw new runtime.RequiredError(
-                'chapterID',
-                'Required parameter "chapterID" was null or undefined when calling messageGetHistoryMsgPost().'
+                'data',
+                'Required parameter "data" was null or undefined when calling messageGetHistoryMsgPost().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['userID'] != null) {
-            queryParameters['userID'] = requestParameters['userID'];
-        }
-
-        if (requestParameters['courseID'] != null) {
-            queryParameters['courseID'] = requestParameters['courseID'];
-        }
-
-        if (requestParameters['chapterID'] != null) {
-            queryParameters['chapterID'] = requestParameters['chapterID'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/message/get_history_msg`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: MessageApiGetHistoryMsgRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MessageGetHistoryMsgPost200ResponseFromJSON(jsonValue));
@@ -109,59 +87,25 @@ export class MessageApi extends runtime.BaseAPI {
      * 发送消息
      */
     async messageSendMsgPostRaw(requestParameters: MessageSendMsgPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MessageSendMsgPost200Response>> {
-        if (requestParameters['userID'] == null) {
+        if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
-                'userID',
-                'Required parameter "userID" was null or undefined when calling messageSendMsgPost().'
-            );
-        }
-
-        if (requestParameters['courseID'] == null) {
-            throw new runtime.RequiredError(
-                'courseID',
-                'Required parameter "courseID" was null or undefined when calling messageSendMsgPost().'
-            );
-        }
-
-        if (requestParameters['chapterID'] == null) {
-            throw new runtime.RequiredError(
-                'chapterID',
-                'Required parameter "chapterID" was null or undefined when calling messageSendMsgPost().'
-            );
-        }
-
-        if (requestParameters['content'] == null) {
-            throw new runtime.RequiredError(
-                'content',
-                'Required parameter "content" was null or undefined when calling messageSendMsgPost().'
+                'data',
+                'Required parameter "data" was null or undefined when calling messageSendMsgPost().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['userID'] != null) {
-            queryParameters['userID'] = requestParameters['userID'];
-        }
-
-        if (requestParameters['courseID'] != null) {
-            queryParameters['courseID'] = requestParameters['courseID'];
-        }
-
-        if (requestParameters['chapterID'] != null) {
-            queryParameters['chapterID'] = requestParameters['chapterID'];
-        }
-
-        if (requestParameters['content'] != null) {
-            queryParameters['content'] = requestParameters['content'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/message/send_msg`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: MessageApiSendMsgRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MessageSendMsgPost200ResponseFromJSON(jsonValue));

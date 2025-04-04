@@ -1,4 +1,4 @@
-# models.CourseModel
+# course_api.UpdateCourseRequest
 ## Properties
 
 | Name | Type | Description | Notes |

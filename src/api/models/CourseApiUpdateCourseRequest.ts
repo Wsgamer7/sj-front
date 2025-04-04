@@ -16,65 +16,65 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface ModelsCourseModel
+ * @interface CourseApiUpdateCourseRequest
  */
-export interface ModelsCourseModel {
+export interface CourseApiUpdateCourseRequest {
     /**
      * 
      * @type {number}
-     * @memberof ModelsCourseModel
+     * @memberof CourseApiUpdateCourseRequest
      */
     courseID?: number;
     /**
      * 
      * @type {string}
-     * @memberof ModelsCourseModel
+     * @memberof CourseApiUpdateCourseRequest
      */
     courseName?: string;
     /**
      * 
      * @type {string}
-     * @memberof ModelsCourseModel
+     * @memberof CourseApiUpdateCourseRequest
      */
     cover?: string;
     /**
      * 
      * @type {string}
-     * @memberof ModelsCourseModel
+     * @memberof CourseApiUpdateCourseRequest
      */
     createdAt?: string;
     /**
      * 
      * @type {number}
-     * @memberof ModelsCourseModel
+     * @memberof CourseApiUpdateCourseRequest
      */
     createrID?: number;
     /**
      * 
      * @type {string}
-     * @memberof ModelsCourseModel
+     * @memberof CourseApiUpdateCourseRequest
      */
     description?: string;
     /**
      * 
      * @type {number}
-     * @memberof ModelsCourseModel
+     * @memberof CourseApiUpdateCourseRequest
      */
     id?: number;
 }
 
 /**
- * Check if a given object implements the ModelsCourseModel interface.
+ * Check if a given object implements the CourseApiUpdateCourseRequest interface.
  */
-export function instanceOfModelsCourseModel(value: object): value is ModelsCourseModel {
+export function instanceOfCourseApiUpdateCourseRequest(value: object): value is CourseApiUpdateCourseRequest {
     return true;
 }
 
-export function ModelsCourseModelFromJSON(json: any): ModelsCourseModel {
-    return ModelsCourseModelFromJSONTyped(json, false);
+export function CourseApiUpdateCourseRequestFromJSON(json: any): CourseApiUpdateCourseRequest {
+    return CourseApiUpdateCourseRequestFromJSONTyped(json, false);
 }
 
-export function ModelsCourseModelFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelsCourseModel {
+export function CourseApiUpdateCourseRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): CourseApiUpdateCourseRequest {
     if (json == null) {
         return json;
     }
@@ -90,11 +90,11 @@ export function ModelsCourseModelFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-  export function ModelsCourseModelToJSON(json: any): ModelsCourseModel {
-      return ModelsCourseModelToJSONTyped(json, false);
+  export function CourseApiUpdateCourseRequestToJSON(json: any): CourseApiUpdateCourseRequest {
+      return CourseApiUpdateCourseRequestToJSONTyped(json, false);
   }
 
-  export function ModelsCourseModelToJSONTyped(value?: ModelsCourseModel | null, ignoreDiscriminator: boolean = false): any {
+  export function CourseApiUpdateCourseRequestToJSONTyped(value?: CourseApiUpdateCourseRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**logoutGet**](UserApi.md#logoutGet) | **GET** /logout | 注销 |
+| [**userGetUserInfoByIdPost**](UserApi.md#userGetUserInfoByIdPost) | **POST** /user/get_user_info_by_id | 获取用户信息 |
 | [**userGetUserInfoPost**](UserApi.md#userGetUserInfoPost) | **POST** /user/get_user_info | 获取用户信息 |
 | [**userLoginPost**](UserApi.md#userLoginPost) | **POST** /user/login | 登录 |
 | [**userRegisterPost**](UserApi.md#userRegisterPost) | **POST** /user/register | 注册 |
@@ -33,6 +34,33 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+<a name="userGetUserInfoByIdPost"></a>
+# **userGetUserInfoByIdPost**
+> _user_get_user_info_by_id_post_200_response userGetUserInfoByIdPost(data)
+
+获取用户信息
+
+    获取用户信息
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **data** | [**user_api.GetUserInfoByIdRequest**](../Models/user_api.GetUserInfoByIdRequest.md)| 获取用户信息请求参数 | |
+
+### Return type
+
+[**_user_get_user_info_by_id_post_200_response**](../Models/_user_get_user_info_by_id_post_200_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 <a name="userGetUserInfoPost"></a>
