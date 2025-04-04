@@ -147,11 +147,17 @@ function CourseDetail({ course }: { course: ModelsCourseModel }) {
   const handleStartCourse = () => {
     window.location.href = `/chat?courseId=${course.courseID}`;
   };
+
+  const getIsInCourse = () => {
+    return studentList.some((item) => item.user?.userID === userInfo?.userId);
+  };
   return (
     <div className="flex flex-col justify-between h-full p-5 ">
       <div className="flex flex-col gap-4">
         <div className="text-2xl font-bold">{course.courseName}</div>
-        <div className="text-sm text-gray-500">{course.description}</div>
+        <div className="text-sm text-gray-500  line-clamp-10">
+          {course.description}
+        </div>
         <div className="flex flex-col gap-2">
           <div className="text-lg font-bold">教师</div>
           <div className="relative flex gap-2 items-center">
@@ -177,8 +183,12 @@ function CourseDetail({ course }: { course: ModelsCourseModel }) {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <Button variant="outline" onClick={handleJoinCourse}>
-          加入课程
+        <Button
+          variant="outline"
+          disabled={getIsInCourse()}
+          onClick={handleJoinCourse}
+        >
+          {getIsInCourse() ? "已进入课程" : "加入课程"}
         </Button>
         <Button onClick={handleStartCourse}>开始学习</Button>
       </div>

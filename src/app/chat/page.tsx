@@ -57,6 +57,7 @@ function TrueChat({ useCourseData }: { useCourseData: useCourseReturn }) {
     });
     setConversationId(res.data?.conversationID ?? 0);
   };
+
   return (
     <SidebarProvider>
       <AppSidebar
@@ -64,6 +65,9 @@ function TrueChat({ useCourseData }: { useCourseData: useCourseReturn }) {
         chapters={useCourseData.chapters}
         selectedChapterIndex={useCourseData.selectedChapterIndex}
         setSelectedChapterIndex={handleSelectChapter}
+        getScoreByIndex={useCourseData.getScoreByIndex}
+        genNowChapterScore={useCourseData.genNowChapterScore}
+        genNowCourseScore={useCourseData.genNowCourseScore}
       />
       <main className="w-full h-screen">
         <Navbar />

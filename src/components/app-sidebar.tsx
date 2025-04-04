@@ -23,6 +23,9 @@ export function AppSidebar({
   setSelectedChapterIndex,
   addChapterBtn,
   deleteChapter,
+  getScoreByIndex,
+  genNowChapterScore,
+  genNowCourseScore,
 }: {
   course?: ModelsCourseModel;
   chapters: ModelsChapterModel[];
@@ -30,12 +33,15 @@ export function AppSidebar({
   setSelectedChapterIndex: (index: number) => void;
   addChapterBtn?: React.ReactNode;
   deleteChapter?: (chapterID?: number) => void;
+  getScoreByIndex?: (index: number) => number;
+  genNowChapterScore?: () => Promise<void>;
+  genNowCourseScore?: () => Promise<void>;
 }) {
   const pathname = usePathname();
   const canDelete = pathname.includes("edit");
   return (
     <Sidebar>
-      <SidebarContent>
+      <SidebarContent className="relative">
         <SidebarGroup className="flex flex-col gap-4">
           <SidebarGroupLabel
             className="text-xl font-bold text-amber-950 cursor-pointer"
@@ -68,12 +74,44 @@ export function AppSidebar({
                         }}
                       />
                     )}
+                    {!canDelete && (
+                      <div
+                        className={cn(
+                          "text-sm absolute right-2 top-1/2 -translate-y-1/2"
+                        )}
+                        style={{
+                          display: getScoreByIndex?.(index)! ? "block" : "none",
+                          color:
+                            getScoreByIndex?.(index)! > 60 ? "green" : "red",
+                        }}
+                      >
+                        {getScoreByIndex?.(index)!}
+                      </div>
+                    )}
                   </SidebarMenuItem>
                 ))}
               </div>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        {!canDelete && (
+          <SidebarFooter className="absolute bottom-0 left-0 right-0">
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={genNowChapterScore}
+            >
+              完成章节
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={genNowCourseScore}
+            >
+              完成课程
+            </Button>
+          </SidebarFooter>
+        )}
       </SidebarContent>
     </Sidebar>
   );

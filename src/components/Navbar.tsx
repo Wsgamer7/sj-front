@@ -62,7 +62,15 @@ export default function Navbar() {
               ))}
             </div>
             <MenubarSeparator />
-            <MenubarItem>登出</MenubarItem>
+            <MenubarItem
+              onClick={() => {
+                auth.logout().then(() => {
+                  router.push("/login");
+                });
+              }}
+            >
+              登出
+            </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
       </Menubar>

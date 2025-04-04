@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { ModelsChapterModel } from "@/api";
 
@@ -8,6 +8,7 @@ import { useState } from "react";
 import apiClient from "@/lib/apiConfig";
 import { CourseApi } from "@/api";
 import { toast } from "sonner";
+import useAuth from "./useAuth";
 const courseApi = new CourseApi(apiClient);
 
 export interface useCourseReturn {
@@ -22,17 +23,26 @@ export interface useCourseReturn {
   updateSelectedChapter: (chapter: ModelsChapterModel) => void;
   addChapter: (index: number, chapter: ModelsChapterModel) => void;
   deleteChapter: (chapterID?: number) => void;
+  getScoreByIndex: (index: number) => number;
+  genNowChapterScore: () => Promise<void>;
+  genNowCourseScore: () => Promise<void>;
 }
 
 export default function useCourse(
   courseId?: number,
-  setIsLoading?: (isLoading: boolean) => void
+  setIsLoading?: (isLoading: boolean) => void,
+  isChat: boolean = false
 ): useCourseReturn {
   const [course, setCourse] = useState<ModelsCourseModel>();
 
   const [chapters, setChapters] = useState<ModelsChapterModel[]>([]);
   const [selectedChapterIndex, setSelectedChapterIndex] = useState<number>(-1);
 
+  const useAuthData = useAuth();
+
+  const [chapterIndexToScore, setChapterIndexToScore] = useState<
+    Record<number, number>
+  >({});
   const isSelectCourse = selectedChapterIndex === -1;
   const selectedChapter = isSelectCourse
     ? undefined
@@ -49,7 +59,7 @@ export default function useCourse(
       });
       setCourse(res.data?.course);
     };
-    const fetchChapters = async () => {
+    const fetchEditChapters = async () => {
       const res = await courseApi.courseGetChaptersPost({
         data: {
           courseID: Number(courseId),
@@ -60,7 +70,30 @@ export default function useCourse(
           []
       );
     };
-    Promise.all([fetchCourse(), fetchChapters()]).finally(() => {
+    const fetchChatChapters = async () => {
+      const res = await courseApi.courseGetChaptersByUserIdPost({
+        data: {
+          courseID: Number(courseId),
+        },
+      });
+
+      const fetchedChapters: ModelsChapterModel[] = [];
+      const newChapterIndexToScore: Record<number, number> = {};
+      res.data?.chapters?.forEach((chapterWithScore) => {
+        fetchedChapters.push(chapterWithScore.chapter!);
+        newChapterIndexToScore[chapterWithScore.chapter?.index!] =
+          chapterWithScore.score!;
+      });
+      setChapters(fetchedChapters);
+      setChapterIndexToScore(newChapterIndexToScore);
+    };
+    let chapterPromise: Promise<void> = Promise.resolve();
+    if (isChat) {
+      chapterPromise = fetchChatChapters();
+    } else {
+      chapterPromise = fetchEditChapters();
+    }
+    Promise.all([fetchCourse(), chapterPromise]).finally(() => {
       setIsLoading?.(false);
     });
   }, []);
@@ -105,6 +138,40 @@ export default function useCourse(
     setChapters(newChapters);
     setSelectedChapterIndex(-1);
   };
+  const getScoreByIndex = (index: number) => {
+    return chapterIndexToScore[index] || 0;
+  };
+
+  const genNowChapterScore = async () => {
+    if (!selectedChapter) {
+      toast.error("请先选择章节");
+      return;
+    }
+    const res = await courseApi.courseGenChapterScorePost({
+      data: {
+        chapterID: selectedChapter?.chapterID,
+        userID: Number(useAuthData.userInfo?.userId || 0),
+      },
+    });
+    if (res.code) {
+      toast.error(res.msg);
+      return;
+    }
+    const newChapterIndex = selectedChapter.index!;
+    const newChapterIndexToScore = {
+      ...chapterIndexToScore,
+      [newChapterIndex]: res.data?.score || 0,
+    };
+    setChapterIndexToScore(newChapterIndexToScore);
+  };
+  const genNowCourseScore = async () => {
+    courseApi.courseGenCourseFinishPost({
+      data: {
+        courseID: course?.courseID,
+        userID: Number(useAuthData.userInfo?.userId || 0),
+      },
+    });
+  };
 
   return {
     course,
@@ -118,5 +185,8 @@ export default function useCourse(
     updateSelectedChapter,
     addChapter,
     deleteChapter,
+    getScoreByIndex,
+    genNowChapterScore,
+    genNowCourseScore,
   };
 }
