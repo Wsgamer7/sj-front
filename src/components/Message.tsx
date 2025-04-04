@@ -1,4 +1,4 @@
-import { Message, MessageRole } from "@/hooks/useMessages";
+import { Message, MessageType } from "@/hooks/useMessages";
 import { cn } from "@/lib/utils";
 
 const SingleMessageAI = ({
@@ -60,7 +60,7 @@ const Messages = ({
           key={index}
           className={cn(
             "w-full",
-            message.role === MessageRole.User
+            message.type === MessageType.User
               ? "flex justify-end"
               : "flex justify-start"
           )}
@@ -68,12 +68,12 @@ const Messages = ({
           <div
             className={cn(
               "max-w-[80%]",
-              message.role === MessageRole.User
+              message.type === MessageType.User
                 ? "flex-row-reverse"
                 : "flex-row"
             )}
           >
-            {message.role === MessageRole.User ? (
+            {message.type === MessageType.User ? (
               <SingleMessageUser
                 message={message}
                 className="bg-primary text-primary-foreground"

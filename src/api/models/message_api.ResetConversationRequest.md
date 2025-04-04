@@ -1,4 +1,4 @@
-# message_api.GetConversationIDRequest
+# message_api.ResetConversationRequest
 ## Properties
 
 | Name | Type | Description | Notes |

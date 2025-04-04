@@ -1,35 +1,73 @@
+import { MessageApi } from "@/api";
+import apiClient from "@/lib/apiConfig";
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-export enum MessageRole {
+import { toast } from "sonner";
+function getRandomInt() {
+  return Math.floor(Math.random() * (10000 - 0 + 1)) + 0;
+}
+import { ModelsMessageModel } from "@/api/models/ModelsMessageModel";
+export enum MessageType {
   User = 1,
   AI = 2,
 }
 export interface Message {
+  id: number;
   content: string;
-  role: MessageRole;
+  type: MessageType;
 }
+const messageApi = new MessageApi(apiClient);
 
-export default function useMessages(chatId?: string) {
+export default function useMessages(conversationId?: number) {
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    if (!chatId) return;
+    if (!conversationId) return;
     const fetchMessages = async () => {
-      const messages = await getMessages(chatId);
-      setMessages(messages);
+      const res = await messageApi.messageGetHistoryMsgPost({
+        data: {
+          conversationID: conversationId,
+        },
+      });
+      if (res.code) {
+        toast.error(res.msg);
+      }
+      setMessages(
+        res.data?.message_list?.map((item) => ({
+          id: item.id ?? 0,
+          content: item.content ?? "",
+          type: item.message_type ?? MessageType.User,
+        })) ?? []
+      );
     };
     fetchMessages();
-  }, [chatId]);
+  }, [conversationId]);
   const sendMessage = async (content: string) => {
-    if (!chatId) return;
+    if (!conversationId) return;
     const newMessages = [
       ...messages,
-      { id: uuidv4(), content, role: MessageRole.User },
+      { id: getRandomInt(), content, type: MessageType.User },
     ];
     setMessages(newMessages);
-    const response = await sendMessage(message);
-    const newMessages = [...messages, response];
-    setMessages(newMessages);
+    messageApi
+      .messageSendMsgPost({
+        data: {
+          conversationID: conversationId,
+          content,
+        },
+      })
+      .then((res) => {
+        if (res.code) {
+          toast.error(res.msg);
+        }
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: getRandomInt(),
+            content: res.data?.message ?? "",
+            type: MessageType.AI,
+          },
+        ]);
+      });
   };
 
   return {

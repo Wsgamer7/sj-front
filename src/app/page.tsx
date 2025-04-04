@@ -53,7 +53,7 @@ export default function Home() {
       toast.error("创建课程失败");
       return;
     }
-    router.push(`/edit?courseId=${newCourseId}`);
+    window.location.href = `/edit?courseId=${newCourseId}`;
   };
   return (
     <div className="w-full px-16 ">
@@ -144,6 +144,9 @@ function CourseDetail({ course }: { course: ModelsCourseModel }) {
       },
     });
   };
+  const handleStartCourse = () => {
+    window.location.href = `/chat?courseId=${course.courseID}`;
+  };
   return (
     <div className="flex flex-col justify-between h-full p-5 ">
       <div className="flex flex-col gap-4">
@@ -173,7 +176,12 @@ function CourseDetail({ course }: { course: ModelsCourseModel }) {
           </div>
         </div>
       </div>
-      <Button onClick={handleJoinCourse}>加入课程</Button>
+      <div className="flex flex-col gap-2">
+        <Button variant="outline" onClick={handleJoinCourse}>
+          加入课程
+        </Button>
+        <Button onClick={handleStartCourse}>开始学习</Button>
+      </div>
     </div>
   );
 }

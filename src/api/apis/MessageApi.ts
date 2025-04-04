@@ -15,34 +15,44 @@
 
 import * as runtime from '../runtime';
 import type {
-  MessageApiCreateConversationRequest,
+  MessageApiGetConversationIDRequest,
   MessageApiGetHistoryMsgRequest,
+  MessageApiResetConversationRequest,
   MessageApiSendMsgRequest,
-  MessageCreateConversationPost200Response,
+  MessageGetConversationIdPost200Response,
   MessageGetHistoryMsgPost200Response,
+  MessageResetConversationPost200Response,
   MessageSendMsgPost200Response,
 } from '../models/index';
 import {
-    MessageApiCreateConversationRequestFromJSON,
-    MessageApiCreateConversationRequestToJSON,
+    MessageApiGetConversationIDRequestFromJSON,
+    MessageApiGetConversationIDRequestToJSON,
     MessageApiGetHistoryMsgRequestFromJSON,
     MessageApiGetHistoryMsgRequestToJSON,
+    MessageApiResetConversationRequestFromJSON,
+    MessageApiResetConversationRequestToJSON,
     MessageApiSendMsgRequestFromJSON,
     MessageApiSendMsgRequestToJSON,
-    MessageCreateConversationPost200ResponseFromJSON,
-    MessageCreateConversationPost200ResponseToJSON,
+    MessageGetConversationIdPost200ResponseFromJSON,
+    MessageGetConversationIdPost200ResponseToJSON,
     MessageGetHistoryMsgPost200ResponseFromJSON,
     MessageGetHistoryMsgPost200ResponseToJSON,
+    MessageResetConversationPost200ResponseFromJSON,
+    MessageResetConversationPost200ResponseToJSON,
     MessageSendMsgPost200ResponseFromJSON,
     MessageSendMsgPost200ResponseToJSON,
 } from '../models/index';
 
-export interface MessageCreateConversationPostRequest {
-    data: MessageApiCreateConversationRequest;
+export interface MessageGetConversationIdPostRequest {
+    data: MessageApiGetConversationIDRequest;
 }
 
 export interface MessageGetHistoryMsgPostRequest {
     data: MessageApiGetHistoryMsgRequest;
+}
+
+export interface MessageResetConversationPostRequest {
+    data: MessageApiResetConversationRequest;
 }
 
 export interface MessageSendMsgPostRequest {
@@ -55,14 +65,14 @@ export interface MessageSendMsgPostRequest {
 export class MessageApi extends runtime.BaseAPI {
 
     /**
-     * 创建对话
-     * 创建对话
+     * 获取对话ID
+     * 获取对话ID
      */
-    async messageCreateConversationPostRaw(requestParameters: MessageCreateConversationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MessageCreateConversationPost200Response>> {
+    async messageGetConversationIdPostRaw(requestParameters: MessageGetConversationIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MessageGetConversationIdPost200Response>> {
         if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
                 'data',
-                'Required parameter "data" was null or undefined when calling messageCreateConversationPost().'
+                'Required parameter "data" was null or undefined when calling messageGetConversationIdPost().'
             );
         }
 
@@ -73,22 +83,22 @@ export class MessageApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/message/create_conversation`,
+            path: `/message/get_conversation_id`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: MessageApiCreateConversationRequestToJSON(requestParameters['data']),
+            body: MessageApiGetConversationIDRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MessageCreateConversationPost200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => MessageGetConversationIdPost200ResponseFromJSON(jsonValue));
     }
 
     /**
-     * 创建对话
-     * 创建对话
+     * 获取对话ID
+     * 获取对话ID
      */
-    async messageCreateConversationPost(requestParameters: MessageCreateConversationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MessageCreateConversationPost200Response> {
-        const response = await this.messageCreateConversationPostRaw(requestParameters, initOverrides);
+    async messageGetConversationIdPost(requestParameters: MessageGetConversationIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MessageGetConversationIdPost200Response> {
+        const response = await this.messageGetConversationIdPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -127,6 +137,44 @@ export class MessageApi extends runtime.BaseAPI {
      */
     async messageGetHistoryMsgPost(requestParameters: MessageGetHistoryMsgPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MessageGetHistoryMsgPost200Response> {
         const response = await this.messageGetHistoryMsgPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 重置对话
+     * 重置对话
+     */
+    async messageResetConversationPostRaw(requestParameters: MessageResetConversationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MessageResetConversationPost200Response>> {
+        if (requestParameters['data'] == null) {
+            throw new runtime.RequiredError(
+                'data',
+                'Required parameter "data" was null or undefined when calling messageResetConversationPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/message/reset_conversation`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: MessageApiResetConversationRequestToJSON(requestParameters['data']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MessageResetConversationPost200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 重置对话
+     * 重置对话
+     */
+    async messageResetConversationPost(requestParameters: MessageResetConversationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MessageResetConversationPost200Response> {
+        const response = await this.messageResetConversationPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -16,41 +16,41 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MessageApiGetConversationIDRequest
+ * @interface MessageApiResetConversationRequest
  */
-export interface MessageApiGetConversationIDRequest {
+export interface MessageApiResetConversationRequest {
     /**
      * 
      * @type {number}
-     * @memberof MessageApiGetConversationIDRequest
+     * @memberof MessageApiResetConversationRequest
      */
     chapterID?: number;
     /**
      * 
      * @type {number}
-     * @memberof MessageApiGetConversationIDRequest
+     * @memberof MessageApiResetConversationRequest
      */
     courseID?: number;
     /**
      * 
      * @type {number}
-     * @memberof MessageApiGetConversationIDRequest
+     * @memberof MessageApiResetConversationRequest
      */
     userID?: number;
 }
 
 /**
- * Check if a given object implements the MessageApiGetConversationIDRequest interface.
+ * Check if a given object implements the MessageApiResetConversationRequest interface.
  */
-export function instanceOfMessageApiGetConversationIDRequest(value: object): value is MessageApiGetConversationIDRequest {
+export function instanceOfMessageApiResetConversationRequest(value: object): value is MessageApiResetConversationRequest {
     return true;
 }
 
-export function MessageApiGetConversationIDRequestFromJSON(json: any): MessageApiGetConversationIDRequest {
-    return MessageApiGetConversationIDRequestFromJSONTyped(json, false);
+export function MessageApiResetConversationRequestFromJSON(json: any): MessageApiResetConversationRequest {
+    return MessageApiResetConversationRequestFromJSONTyped(json, false);
 }
 
-export function MessageApiGetConversationIDRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): MessageApiGetConversationIDRequest {
+export function MessageApiResetConversationRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): MessageApiResetConversationRequest {
     if (json == null) {
         return json;
     }
@@ -62,11 +62,11 @@ export function MessageApiGetConversationIDRequestFromJSONTyped(json: any, ignor
     };
 }
 
-  export function MessageApiGetConversationIDRequestToJSON(json: any): MessageApiGetConversationIDRequest {
-      return MessageApiGetConversationIDRequestToJSONTyped(json, false);
+  export function MessageApiResetConversationRequestToJSON(json: any): MessageApiResetConversationRequest {
+      return MessageApiResetConversationRequestToJSONTyped(json, false);
   }
 
-  export function MessageApiGetConversationIDRequestToJSONTyped(value?: MessageApiGetConversationIDRequest | null, ignoreDiscriminator: boolean = false): any {
+  export function MessageApiResetConversationRequestToJSONTyped(value?: MessageApiResetConversationRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

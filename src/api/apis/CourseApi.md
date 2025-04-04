@@ -5,9 +5,9 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**courseCreateChapterPost**](CourseApi.md#courseCreateChapterPost) | **POST** /course/create_chapter | 创建章节 |
-| [**courseCreateConversationPost**](CourseApi.md#courseCreateConversationPost) | **POST** /course/create_conversation | 创建会话 |
 | [**courseCreateCoursePost**](CourseApi.md#courseCreateCoursePost) | **POST** /course/create_course | 创建课程 |
 | [**courseDeleteChapterPost**](CourseApi.md#courseDeleteChapterPost) | **POST** /course/delete_chapter | 删除章节 |
+| [**courseDeleteCoursePost**](CourseApi.md#courseDeleteCoursePost) | **POST** /course/delete_course | 删除课程 |
 | [**courseGenChapterScorePost**](CourseApi.md#courseGenChapterScorePost) | **POST** /course/gen_chapter_score | 生成章节分数 |
 | [**courseGenCourseFinishPost**](CourseApi.md#courseGenCourseFinishPost) | **POST** /course/gen_course_finish | 生成课程完成状态 |
 | [**courseGetChaptersByUserIdPost**](CourseApi.md#courseGetChaptersByUserIdPost) | **POST** /course/get_chapters_by_user_id | 获取章节信息 |
@@ -38,33 +38,6 @@ All URIs are relative to *http://localhost*
 ### Return type
 
 [**_course_create_chapter_post_200_response**](../Models/_course_create_chapter_post_200_response.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-<a name="courseCreateConversationPost"></a>
-# **courseCreateConversationPost**
-> _course_create_conversation_post_200_response courseCreateConversationPost(data)
-
-创建会话
-
-    创建会话
-
-### Parameters
-
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **data** | [**course_api.CreateConversationRequest**](../Models/course_api.CreateConversationRequest.md)| 创建会话请求参数 | |
-
-### Return type
-
-[**_course_create_conversation_post_200_response**](../Models/_course_create_conversation_post_200_response.md)
 
 ### Authorization
 
@@ -119,6 +92,33 @@ No authorization required
 ### Return type
 
 [**_course_delete_chapter_post_200_response**](../Models/_course_delete_chapter_post_200_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+<a name="courseDeleteCoursePost"></a>
+# **courseDeleteCoursePost**
+> _course_delete_course_post_200_response courseDeleteCoursePost(data)
+
+删除课程
+
+    删除课程
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **data** | [**course_api.DeleteCourseRequest**](../Models/course_api.DeleteCourseRequest.md)| 删除课程请求参数 | |
+
+### Return type
+
+[**_course_delete_course_post_200_response**](../Models/_course_delete_course_post_200_response.md)
 
 ### Authorization
 
@@ -357,7 +357,7 @@ No authorization required
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **data** | [**course_api.ScanCourseRequest**](../Models/course_api.ScanCourseRequest.md)| 扫描课程请求参数 | |
+| **data** | **Object**| 扫描课程请求参数 | |
 
 ### Return type
 

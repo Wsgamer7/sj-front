@@ -1,28 +1,51 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import useCourse from "@/hooks/useCourse";
+import useCourse, { useCourseReturn } from "@/hooks/useCourse";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import useMessages from "@/hooks/useMessages";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Messages from "@/components/Message";
 import ChatInput from "@/components/ChatInput";
-type ChatMeta = {
-  courseId: string;
-  chapterId: string;
-  chatId: string;
-};
+import { MessageApi } from "@/api";
+import apiClient from "@/lib/apiConfig";
+import useAuth from "@/hooks/useAuth";
+import { Label } from "@radix-ui/react-label";
+const messageApi = new MessageApi(apiClient);
 
 export default function Chat() {
   const searchParams = useSearchParams();
-  const courseId = searchParams.get("courseId");
-  const useCourseData = useCourse(courseId ?? undefined);
+  const courseId = Number(searchParams.get("courseId"));
+  const [isLoading, setIsLoading] = useState(false);
+  const useCourseData = useCourse(courseId ?? undefined, setIsLoading);
 
-  const [chatMeta, setChatMeta] = useState<ChatMeta | undefined>(undefined);
-  const { messages, sendMessage } = useMessages(chatMeta?.chatId);
-  const handleSelectChapter = (chapterIndex: number) => {
+  return (
+    <>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <TrueChat useCourseData={useCourseData} />
+      )}
+    </>
+  );
+}
+
+function TrueChat({ useCourseData }: { useCourseData: useCourseReturn }) {
+  const [conversationId, setConversationId] = useState<number>(0);
+  const auth = useAuth();
+  const { messages, sendMessage } = useMessages(conversationId);
+  const handleSelectChapter = async (chapterIndex: number) => {
+    await auth.init();
     useCourseData.setSelectedChapterIndex(chapterIndex);
-    //换成真的接口
+    const selectedChapter = useCourseData.chapters[chapterIndex];
+    const res = await messageApi.messageGetConversationIdPost({
+      data: {
+        courseID: useCourseData.course?.id || 0,
+        chapterID: selectedChapter.id,
+        userID: Number(auth.userInfo?.userId || 0),
+      },
+    });
+    setConversationId(res.data?.conversationID ?? 0);
   };
   return (
     <SidebarProvider>
@@ -36,8 +59,13 @@ export default function Chat() {
         <SidebarTrigger />
         <div>
           {useCourseData.isSelectCourse && useCourseData.course && (
-            <div>
-              <h1>Course details</h1>
+            <div className="p-4">
+              <Label className="text-2xl font-bold">
+                {useCourseData.course.courseName}
+              </Label>
+              <p className="text-sm text-gray-500">
+                {useCourseData.course.description}
+              </p>
             </div>
           )}
           {!useCourseData.isSelectCourse && useCourseData.selectedChapter && (

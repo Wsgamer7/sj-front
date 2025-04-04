@@ -10,7 +10,7 @@ import { CourseApi } from "@/api";
 import { toast } from "sonner";
 const courseApi = new CourseApi(apiClient);
 
-interface useCourseReturn {
+export interface useCourseReturn {
   course: ModelsCourseModel | undefined;
   chapters: ModelsChapterModel[];
   selectedChapterIndex: number;
@@ -24,11 +24,14 @@ interface useCourseReturn {
   deleteChapter: (chapterID?: number) => void;
 }
 
-export default function useCourse(courseId?: string): useCourseReturn {
+export default function useCourse(
+  courseId?: number,
+  setIsLoading?: (isLoading: boolean) => void
+): useCourseReturn {
   const [course, setCourse] = useState<ModelsCourseModel>();
 
   const [chapters, setChapters] = useState<ModelsChapterModel[]>([]);
-  const [selectedChapterIndex, setSelectedChapterIndex] = useState<number>(0);
+  const [selectedChapterIndex, setSelectedChapterIndex] = useState<number>(-1);
 
   const isSelectCourse = selectedChapterIndex === -1;
   const selectedChapter = isSelectCourse
@@ -57,8 +60,9 @@ export default function useCourse(courseId?: string): useCourseReturn {
           []
       );
     };
-    fetchCourse();
-    fetchChapters();
+    Promise.all([fetchCourse(), fetchChapters()]).finally(() => {
+      setIsLoading?.(false);
+    });
   }, []);
 
   const updateSelectedChapter = (chapter: ModelsChapterModel) => {

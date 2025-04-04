@@ -32,7 +32,9 @@ export default function Navbar() {
   }, []);
   return (
     <div className="flex items-center justify-between px-4 py-2 w-full bg-white shadow-md">
-      <div className="text-2xl font-bold">史杰牛逼.ai</div>
+      <a href="/" className="text-2xl font-bold" target="_blank">
+        史杰牛逼.ai
+      </a>
       <Menubar className="border-none bg-transparent shadow-none">
         <MenubarMenu>
           <MenubarTrigger>

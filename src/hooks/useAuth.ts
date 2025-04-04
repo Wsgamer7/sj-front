@@ -17,6 +17,8 @@ export enum Role {
 }
 
 interface AuthState {
+  inited: boolean;
+
   userInfo: useInfo | undefined;
   setToken: (token: string) => void;
   getToken: () => string | undefined;
@@ -27,9 +29,11 @@ interface AuthState {
   postUserInfo: () => Promise<void>;
   fetchUserInfo: () => Promise<void>;
   isLogin: () => boolean;
+  init: () => Promise<void>;
 }
 
 const useAuth = create<AuthState>((set, get) => ({
+  inited: false,
   userInfo: undefined,
   setToken: (token) => {
     localStorage.setItem("tk", token);
@@ -112,6 +116,17 @@ const useAuth = create<AuthState>((set, get) => ({
   isLogin: () => {
     const tk = get().getToken();
     return tk ? true : false;
+  },
+  init: async () => {
+    if (get().inited) {
+      return;
+    }
+    const tk = get().getToken();
+    if (!tk) {
+      return;
+    }
+    get().fetchUserInfo();
+    set({ inited: true });
   },
 }));
 export default useAuth;

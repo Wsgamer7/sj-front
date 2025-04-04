@@ -16,9 +16,9 @@
 import * as runtime from '../runtime';
 import type {
   CourseApiCreateChapterRequest,
-  CourseApiCreateConversationRequest,
   CourseApiCreateCourseRequest,
   CourseApiDeleteChapterRequest,
+  CourseApiDeleteCourseRequest,
   CourseApiGenChapterScoreRequest,
   CourseApiGenCourseFinishRequest,
   CourseApiGetChaptersByUserIDRequest,
@@ -26,13 +26,12 @@ import type {
   CourseApiGetCourseRequest,
   CourseApiGetCourseStudentsRequest,
   CourseApiJoinCourseRequest,
-  CourseApiScanCourseRequest,
   CourseApiUpdateChapterRequest,
   CourseApiUpdateCourseRequest,
   CourseCreateChapterPost200Response,
-  CourseCreateConversationPost200Response,
   CourseCreateCoursePost200Response,
   CourseDeleteChapterPost200Response,
+  CourseDeleteCoursePost200Response,
   CourseGenChapterScorePost200Response,
   CourseGenCourseFinishPost200Response,
   CourseGetChaptersByUserIdPost200Response,
@@ -48,12 +47,12 @@ import type {
 import {
     CourseApiCreateChapterRequestFromJSON,
     CourseApiCreateChapterRequestToJSON,
-    CourseApiCreateConversationRequestFromJSON,
-    CourseApiCreateConversationRequestToJSON,
     CourseApiCreateCourseRequestFromJSON,
     CourseApiCreateCourseRequestToJSON,
     CourseApiDeleteChapterRequestFromJSON,
     CourseApiDeleteChapterRequestToJSON,
+    CourseApiDeleteCourseRequestFromJSON,
+    CourseApiDeleteCourseRequestToJSON,
     CourseApiGenChapterScoreRequestFromJSON,
     CourseApiGenChapterScoreRequestToJSON,
     CourseApiGenCourseFinishRequestFromJSON,
@@ -68,20 +67,18 @@ import {
     CourseApiGetCourseStudentsRequestToJSON,
     CourseApiJoinCourseRequestFromJSON,
     CourseApiJoinCourseRequestToJSON,
-    CourseApiScanCourseRequestFromJSON,
-    CourseApiScanCourseRequestToJSON,
     CourseApiUpdateChapterRequestFromJSON,
     CourseApiUpdateChapterRequestToJSON,
     CourseApiUpdateCourseRequestFromJSON,
     CourseApiUpdateCourseRequestToJSON,
     CourseCreateChapterPost200ResponseFromJSON,
     CourseCreateChapterPost200ResponseToJSON,
-    CourseCreateConversationPost200ResponseFromJSON,
-    CourseCreateConversationPost200ResponseToJSON,
     CourseCreateCoursePost200ResponseFromJSON,
     CourseCreateCoursePost200ResponseToJSON,
     CourseDeleteChapterPost200ResponseFromJSON,
     CourseDeleteChapterPost200ResponseToJSON,
+    CourseDeleteCoursePost200ResponseFromJSON,
+    CourseDeleteCoursePost200ResponseToJSON,
     CourseGenChapterScorePost200ResponseFromJSON,
     CourseGenChapterScorePost200ResponseToJSON,
     CourseGenCourseFinishPost200ResponseFromJSON,
@@ -110,16 +107,16 @@ export interface CourseCreateChapterPostRequest {
     data: CourseApiCreateChapterRequest;
 }
 
-export interface CourseCreateConversationPostRequest {
-    data: CourseApiCreateConversationRequest;
-}
-
 export interface CourseCreateCoursePostRequest {
     data: CourseApiCreateCourseRequest;
 }
 
 export interface CourseDeleteChapterPostRequest {
     data: CourseApiDeleteChapterRequest;
+}
+
+export interface CourseDeleteCoursePostRequest {
+    data: CourseApiDeleteCourseRequest;
 }
 
 export interface CourseGenChapterScorePostRequest {
@@ -155,7 +152,7 @@ export interface CourseScanAllCoursePostRequest {
 }
 
 export interface CourseScanCoursePostRequest {
-    data: CourseApiScanCourseRequest;
+    data: object;
 }
 
 export interface CourseUpdateChapterPostRequest {
@@ -206,44 +203,6 @@ export class CourseApi extends runtime.BaseAPI {
      */
     async courseCreateChapterPost(requestParameters: CourseCreateChapterPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseCreateChapterPost200Response> {
         const response = await this.courseCreateChapterPostRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * 创建会话
-     * 创建会话
-     */
-    async courseCreateConversationPostRaw(requestParameters: CourseCreateConversationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseCreateConversationPost200Response>> {
-        if (requestParameters['data'] == null) {
-            throw new runtime.RequiredError(
-                'data',
-                'Required parameter "data" was null or undefined when calling courseCreateConversationPost().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/course/create_conversation`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CourseApiCreateConversationRequestToJSON(requestParameters['data']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CourseCreateConversationPost200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * 创建会话
-     * 创建会话
-     */
-    async courseCreateConversationPost(requestParameters: CourseCreateConversationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseCreateConversationPost200Response> {
-        const response = await this.courseCreateConversationPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -320,6 +279,44 @@ export class CourseApi extends runtime.BaseAPI {
      */
     async courseDeleteChapterPost(requestParameters: CourseDeleteChapterPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseDeleteChapterPost200Response> {
         const response = await this.courseDeleteChapterPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 删除课程
+     * 删除课程
+     */
+    async courseDeleteCoursePostRaw(requestParameters: CourseDeleteCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseDeleteCoursePost200Response>> {
+        if (requestParameters['data'] == null) {
+            throw new runtime.RequiredError(
+                'data',
+                'Required parameter "data" was null or undefined when calling courseDeleteCoursePost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/course/delete_course`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CourseApiDeleteCourseRequestToJSON(requestParameters['data']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CourseDeleteCoursePost200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 删除课程
+     * 删除课程
+     */
+    async courseDeleteCoursePost(requestParameters: CourseDeleteCoursePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseDeleteCoursePost200Response> {
+        const response = await this.courseDeleteCoursePostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -650,7 +647,7 @@ export class CourseApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CourseApiScanCourseRequestToJSON(requestParameters['data']),
+            body: requestParameters['data'] as any,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CourseScanCoursePost200ResponseFromJSON(jsonValue));
