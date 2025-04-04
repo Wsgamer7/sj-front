@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,11 +11,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import useAuth, { Role } from "@/hooks/useAuth";
 
 import { useState } from "react";
 export function LoginPanel() {
   return (
-    <Tabs defaultValue="account" className="w-[400px]">
+    <Tabs defaultValue="login" className="w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="login">登录</TabsTrigger>
         <TabsTrigger value="register">注册</TabsTrigger>
@@ -67,11 +78,12 @@ function LoginForm() {
 }
 
 function RegisterForm() {
+  const userAuth = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
+  const [role, setRole] = useState(Role.STUDENT);
   const handleRegister = () => {
-    console.log(username, password, rePassword);
+    userAuth.register(username, password, role);
   };
   return (
     <Card>
@@ -80,6 +92,23 @@ function RegisterForm() {
         <CardDescription>请输入你的账号和密码</CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">
+        <Label htmlFor="role">角色</Label>
+        <div className="space-y-1">
+          <Select
+            onValueChange={(value) => setRole(Number(value))}
+            value={role.toString()}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="选择你的角色" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="2">学生</SelectItem>
+                <SelectItem value="1">教师</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
         <div className="space-y-1">
           <Label htmlFor="username">账号</Label>
           <Input
@@ -96,15 +125,6 @@ function RegisterForm() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="space-y-1">
-          <Label htmlFor="rePassword">确认密码</Label>
-          <Input
-            id="rePassword"
-            type="password"
-            value={rePassword}
-            onChange={(e) => setRePassword(e.target.value)}
           />
         </div>
       </CardContent>
