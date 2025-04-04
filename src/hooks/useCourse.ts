@@ -19,6 +19,7 @@ interface useCourseReturn {
   setCourse: (course: ModelsCourseModel) => void;
   setChapters: (chapters: ModelsChapterModel[]) => void;
   updateSelectedChapter: (chapter: ModelsChapterModel) => void;
+  addChapter: (index: number, chapter: ModelsChapterModel) => void;
 }
 
 export default function useCourse(courseId?: string): useCourseReturn {
@@ -26,21 +27,28 @@ export default function useCourse(courseId?: string): useCourseReturn {
 
   const [chapters, setChapters] = useState<ModelsChapterModel[]>([]);
   const [selectedChapterIndex, setSelectedChapterIndex] = useState<number>(0);
-  const selectedChapter = chapters[selectedChapterIndex];
+
   const isSelectCourse = selectedChapterIndex === -1;
+  const selectedChapter = isSelectCourse
+    ? undefined
+    : chapters[selectedChapterIndex];
   useEffect(() => {
     if (!courseId) {
       return;
     }
     const fetchCourse = async () => {
       const res = await courseApi.courseGetCoursePost({
-        courseId: Number(courseId),
+        data: {
+          courseID: Number(courseId),
+        },
       });
       setCourse(res.data?.course);
     };
     const fetchChapters = async () => {
       const res = await courseApi.courseGetChaptersPost({
-        courseId: Number(courseId),
+        data: {
+          courseID: Number(courseId),
+        },
       });
       setChapters(res.data?.chapters || []);
     };
@@ -58,6 +66,12 @@ export default function useCourse(courseId?: string): useCourseReturn {
     setChapters(newChapters);
   };
 
+  const addChapter = (index: number, chapter: ModelsChapterModel) => {
+    const newChapters = [...chapters];
+    newChapters.splice(index, 0, chapter);
+    setChapters(newChapters);
+  };
+
   return {
     course,
     chapters,
@@ -68,5 +82,6 @@ export default function useCourse(courseId?: string): useCourseReturn {
     setCourse,
     setChapters,
     updateSelectedChapter,
+    addChapter,
   };
 }

@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './CourseApiChapterInfo';
 export * from './CourseApiCourseUserInfo';
 export * from './CourseApiCreateChapterRequest';
 export * from './CourseApiCreateChapterResponse';
@@ -12,8 +13,8 @@ export * from './CourseApiFinishCourseRequest';
 export * from './CourseApiGenChapterScoreRequest';
 export * from './CourseApiGenChapterScoreResponse';
 export * from './CourseApiGenCourseFinishRequest';
-export * from './CourseApiGetChapterByIDRequest';
-export * from './CourseApiGetChapterByIDResponse';
+export * from './CourseApiGetChaptersByUserIDRequest';
+export * from './CourseApiGetChaptersByUserIDResponse';
 export * from './CourseApiGetChaptersRequest';
 export * from './CourseApiGetChaptersResponse';
 export * from './CourseApiGetCourseRequest';
@@ -32,7 +33,7 @@ export * from './CourseDeleteChapterPost200Response';
 export * from './CourseFinishCoursePost200Response';
 export * from './CourseGenChapterScorePost200Response';
 export * from './CourseGenCourseFinishPost200Response';
-export * from './CourseGetChapterByIdPost200Response';
+export * from './CourseGetChaptersByUserIdPost200Response';
 export * from './CourseGetChaptersPost200Response';
 export * from './CourseGetCoursePost200Response';
 export * from './CourseGetCourseStudentsPost200Response';

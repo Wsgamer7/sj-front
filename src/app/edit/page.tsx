@@ -1,7 +1,7 @@
 "use client";
 import { ModelsChapterModel, ModelsCourseModel } from "@/api";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { CourseApi } from "@/api";
 import apiClient from "@/lib/apiConfig";
@@ -27,11 +27,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AppSidebar } from "@/components/app-sidebar";
 import useCourse from "@/hooks/useCourse";
-
+import { Label } from "@radix-ui/react-label";
+import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { toast } from "sonner";
 export default function Edit() {
   const searchParams = useSearchParams();
   const courseId = searchParams.get("courseId");
   const useCourseData = useCourse(courseId ?? undefined);
+
   return (
     <SidebarProvider>
       <AppSidebar
@@ -39,12 +55,19 @@ export default function Edit() {
         chapters={useCourseData.chapters}
         selectedChapterIndex={useCourseData.selectedChapterIndex}
         setSelectedChapterIndex={useCourseData.setSelectedChapterIndex}
+        addChapterBtn={
+          <AddChapterBtn
+            addChapter={useCourseData.addChapter}
+            existChapter={useCourseData.chapters}
+            courseId={Number(courseId)}
+          />
+        }
       />
       <main className="w-full ">
         <SidebarTrigger />
-        <div>
+        <div className="p-5 px-6">
           {useCourseData.isSelectCourse && useCourseData.course && (
-            <div className="w-full h-full bg-red-500">
+            <div className="w-full h-full">
               <CourseEditor
                 initCourse={useCourseData.course}
                 setCourse={useCourseData.setCourse}
@@ -65,15 +88,13 @@ export default function Edit() {
   );
 }
 
-const courseSchema = z.object({
-  courseName: z.string().min(2).max(50),
-  description: z.string().min(2).max(50),
-});
-
-const chapterSchema = z.object({
-  chapterName: z.string().min(2).max(50),
-  description: z.string().min(2).max(50),
-});
+function isPositiveInteger(str: string) {
+  if (typeof str !== "string") {
+    return false; // 如果不是字符串，直接返回 false
+  }
+  const num = parseInt(str, 10);
+  return num > 0 && String(num) === str;
+}
 
 function CourseEditor({
   initCourse,
@@ -82,31 +103,31 @@ function CourseEditor({
   initCourse: ModelsCourseModel;
   setCourse: (course: ModelsCourseModel) => void;
 }) {
-  const form = useForm<z.infer<typeof courseSchema>>({
-    resolver: zodResolver(courseSchema),
-    defaultValues: initCourse,
-  });
-  const onSubmit = (data: z.infer<typeof courseSchema>) => {
-    setCourse(data);
-  };
+  const [newCourse, setNewCourse] = useState<ModelsCourseModel>(initCourse);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="courseName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Course Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-            </FormItem>
-          )}
+    <div className="flex flex-col gap-2">
+      <LabelWrapper label="课程名称">
+        <Input
+          value={newCourse.courseName}
+          onChange={(e) =>
+            setNewCourse({ ...newCourse, courseName: e.target.value })
+          }
         />
-      </form>
-    </Form>
+      </LabelWrapper>
+      <LabelWrapper label="描述">
+        <Textarea
+          className="h-[100px]"
+          value={newCourse.description}
+          onChange={(e) =>
+            setNewCourse({ ...newCourse, description: e.target.value })
+          }
+        />
+      </LabelWrapper>
+      <div>
+        <Button onClick={() => setCourse(newCourse)}>Save</Button>
+      </div>
+    </div>
   );
 }
 
@@ -117,30 +138,130 @@ function ChapterEdit({
   initChapter: ModelsChapterModel;
   setChapter: (chapter: ModelsChapterModel) => void;
 }) {
-  const form = useForm<z.infer<typeof chapterSchema>>({
-    resolver: zodResolver(chapterSchema),
-    defaultValues: initChapter,
-  });
-  const onSubmit = (data: z.infer<typeof chapterSchema>) => {
-    setChapter(data);
-  };
+  const [newChapter, setNewChapter] = useState<ModelsChapterModel>(initChapter);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="chapterName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Chapter Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-      </form>
-    </Form>
+    <div>
+      <Input
+        value={newChapter.chapterName}
+        onChange={(e) =>
+          setNewChapter({ ...newChapter, chapterName: e.target.value })
+        }
+      />
+      <Input
+        value={newChapter.description}
+        onChange={(e) =>
+          setNewChapter({ ...newChapter, description: e.target.value })
+        }
+      />
+      <Button onClick={() => setChapter(newChapter)}>Save</Button>
+    </div>
   );
 }
+
+function LabelWrapper({
+  label,
+  children,
+  className,
+}: {
+  label: string;
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex flex-col gap-2", className)}>
+      <Label>{label}</Label>
+      {children}
+    </div>
+  );
+}
+
+const AddChapterBtn = ({
+  addChapter,
+  existChapter,
+  courseId,
+}: {
+  addChapter: (index: number, chapter: ModelsChapterModel) => void;
+  existChapter: ModelsChapterModel[];
+  courseId: number;
+}) => {
+  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState("1");
+  const [chapterName, setChapterName] = useState("");
+  const [difficulty, setDifficulty] = useState("1");
+
+  const handleSave = async () => {
+    if (!isPositiveInteger(index)) {
+      toast.error("章节号必须为正整数");
+      return;
+    }
+    if (existChapter.find((chapter) => chapter.index === Number(index))) {
+      toast.error("章节号已存在");
+      return;
+    }
+    if (chapterName === "") {
+      toast.error("章节名称不能为空");
+      return;
+    }
+    const res = await courseApi.courseCreateChapterPost({
+      data: {
+        index: Number(index),
+        courseID: courseId,
+        chapterName,
+        description: "",
+        difficulty: Number(difficulty),
+      },
+    });
+    if (res.code) {
+      toast.error(res.msg);
+      return;
+    }
+    addChapter(Number(index), {
+      index: Number(index),
+      chapterID: res.data?.chapterID!,
+      chapterName,
+      description: "",
+      difficulty: Number(difficulty),
+    });
+    toast.success("创建成功");
+    setOpen(false);
+  };
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger>
+        <Button variant="outline" className="w-full">
+          新建章节
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="flex flex-col gap-2">
+        <LabelWrapper label="章节号">
+          <Input value={index} onChange={(e) => setIndex(e.target.value)} />
+        </LabelWrapper>
+        <LabelWrapper label="章节名称">
+          <Input
+            value={chapterName}
+            onChange={(e) => setChapterName(e.target.value)}
+          />
+        </LabelWrapper>
+        <LabelWrapper label="难度">
+          <Select
+            value={difficulty}
+            onValueChange={(value) => setDifficulty(value)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="选择难度" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="0">简单</SelectItem>
+              <SelectItem value="1">中等</SelectItem>
+              <SelectItem value="2">困难</SelectItem>
+            </SelectContent>
+          </Select>
+        </LabelWrapper>
+        <Button className="mt-3" onClick={handleSave}>
+          保存
+        </Button>
+      </PopoverContent>
+    </Popover>
+  );
+};

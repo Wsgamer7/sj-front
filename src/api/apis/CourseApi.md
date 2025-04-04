@@ -11,7 +11,7 @@ All URIs are relative to *http://localhost*
 | [**courseFinishCoursePost**](CourseApi.md#courseFinishCoursePost) | **POST** /course/finish_course | 完成课程 |
 | [**courseGenChapterScorePost**](CourseApi.md#courseGenChapterScorePost) | **POST** /course/gen_chapter_score | 生成章节分数 |
 | [**courseGenCourseFinishPost**](CourseApi.md#courseGenCourseFinishPost) | **POST** /course/gen_course_finish | 生成课程完成状态 |
-| [**courseGetChapterByIdPost**](CourseApi.md#courseGetChapterByIdPost) | **POST** /course/get_chapter_by_id | 获取章节信息 |
+| [**courseGetChaptersByUserIdPost**](CourseApi.md#courseGetChaptersByUserIdPost) | **POST** /course/get_chapters_by_user_id | 获取章节信息 |
 | [**courseGetChaptersPost**](CourseApi.md#courseGetChaptersPost) | **POST** /course/get_chapters | 获取课程章节列表 |
 | [**courseGetCoursePost**](CourseApi.md#courseGetCoursePost) | **POST** /course/get_course | 获取课程信息 |
 | [**courseGetCourseStudentsPost**](CourseApi.md#courseGetCourseStudentsPost) | **POST** /course/get_course_students | 获取课程学生信息 |
@@ -210,9 +210,9 @@ No authorization required
 - **Content-Type**: application/json
 - **Accept**: application/json
 
-<a name="courseGetChapterByIdPost"></a>
-# **courseGetChapterByIdPost**
-> _course_get_chapter_by_id_post_200_response courseGetChapterByIdPost(data)
+<a name="courseGetChaptersByUserIdPost"></a>
+# **courseGetChaptersByUserIdPost**
+> _course_get_chapters_by_user_id_post_200_response courseGetChaptersByUserIdPost(data)
 
 获取章节信息
 
@@ -222,11 +222,11 @@ No authorization required
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **data** | [**course_api.GetChapterByIDRequest**](../Models/course_api.GetChapterByIDRequest.md)| 获取章节信息请求参数 | |
+| **data** | [**course_api.GetChaptersByUserIDRequest**](../Models/course_api.GetChaptersByUserIDRequest.md)| 获取章节信息请求参数 | |
 
 ### Return type
 
-[**_course_get_chapter_by_id_post_200_response**](../Models/_course_get_chapter_by_id_post_200_response.md)
+[**_course_get_chapters_by_user_id_post_200_response**](../Models/_course_get_chapters_by_user_id_post_200_response.md)
 
 ### Authorization
 

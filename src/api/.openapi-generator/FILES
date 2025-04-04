@@ -10,7 +10,7 @@ Models/_course_delete_chapter_post_200_response.md
 Models/_course_finish_course_post_200_response.md
 Models/_course_gen_chapter_score_post_200_response.md
 Models/_course_gen_course_finish_post_200_response.md
-Models/_course_get_chapter_by_id_post_200_response.md
+Models/_course_get_chapters_by_user_id_post_200_response.md
 Models/_course_get_chapters_post_200_response.md
 Models/_course_get_course_post_200_response.md
 Models/_course_get_course_students_post_200_response.md
@@ -27,6 +27,7 @@ Models/_user_get_user_info_post_200_response.md
 Models/_user_login_post_200_response.md
 Models/_user_register_post_200_response.md
 Models/_user_set_user_info_post_200_response.md
+Models/course_api.ChapterInfo.md
 Models/course_api.CourseUserInfo.md
 Models/course_api.CreateChapterRequest.md
 Models/course_api.CreateChapterResponse.md
@@ -39,8 +40,8 @@ Models/course_api.FinishCourseRequest.md
 Models/course_api.GenChapterScoreRequest.md
 Models/course_api.GenChapterScoreResponse.md
 Models/course_api.GenCourseFinishRequest.md
-Models/course_api.GetChapterByIDRequest.md
-Models/course_api.GetChapterByIDResponse.md
+Models/course_api.GetChaptersByUserIDRequest.md
+Models/course_api.GetChaptersByUserIDResponse.md
 Models/course_api.GetChaptersRequest.md
 Models/course_api.GetChaptersResponse.md
 Models/course_api.GetCourseRequest.md

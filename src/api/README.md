@@ -14,7 +14,7 @@ All URIs are relative to *http://localhost*
 *CourseApi* | [**courseFinishCoursePost**](Apis/CourseApi.md#coursefinishcoursepost) | **POST** /course/finish_course | 完成课程 |
 *CourseApi* | [**courseGenChapterScorePost**](Apis/CourseApi.md#coursegenchapterscorepost) | **POST** /course/gen_chapter_score | 生成章节分数 |
 *CourseApi* | [**courseGenCourseFinishPost**](Apis/CourseApi.md#coursegencoursefinishpost) | **POST** /course/gen_course_finish | 生成课程完成状态 |
-*CourseApi* | [**courseGetChapterByIdPost**](Apis/CourseApi.md#coursegetchapterbyidpost) | **POST** /course/get_chapter_by_id | 获取章节信息 |
+*CourseApi* | [**courseGetChaptersByUserIdPost**](Apis/CourseApi.md#coursegetchaptersbyuseridpost) | **POST** /course/get_chapters_by_user_id | 获取章节信息 |
 *CourseApi* | [**courseGetChaptersPost**](Apis/CourseApi.md#coursegetchapterspost) | **POST** /course/get_chapters | 获取课程章节列表 |
 *CourseApi* | [**courseGetCoursePost**](Apis/CourseApi.md#coursegetcoursepost) | **POST** /course/get_course | 获取课程信息 |
 *CourseApi* | [**courseGetCourseStudentsPost**](Apis/CourseApi.md#coursegetcoursestudentspost) | **POST** /course/get_course_students | 获取课程学生信息 |
@@ -46,7 +46,7 @@ All URIs are relative to *http://localhost*
  - [_course_finish_course_post_200_response](./Models/_course_finish_course_post_200_response.md)
  - [_course_gen_chapter_score_post_200_response](./Models/_course_gen_chapter_score_post_200_response.md)
  - [_course_gen_course_finish_post_200_response](./Models/_course_gen_course_finish_post_200_response.md)
- - [_course_get_chapter_by_id_post_200_response](./Models/_course_get_chapter_by_id_post_200_response.md)
+ - [_course_get_chapters_by_user_id_post_200_response](./Models/_course_get_chapters_by_user_id_post_200_response.md)
  - [_course_get_chapters_post_200_response](./Models/_course_get_chapters_post_200_response.md)
  - [_course_get_course_post_200_response](./Models/_course_get_course_post_200_response.md)
  - [_course_get_course_students_post_200_response](./Models/_course_get_course_students_post_200_response.md)
@@ -63,6 +63,7 @@ All URIs are relative to *http://localhost*
  - [_user_login_post_200_response](./Models/_user_login_post_200_response.md)
  - [_user_register_post_200_response](./Models/_user_register_post_200_response.md)
  - [_user_set_user_info_post_200_response](./Models/_user_set_user_info_post_200_response.md)
+ - [course_api.ChapterInfo](./Models/course_api.ChapterInfo.md)
  - [course_api.CourseUserInfo](./Models/course_api.CourseUserInfo.md)
  - [course_api.CreateChapterRequest](./Models/course_api.CreateChapterRequest.md)
  - [course_api.CreateChapterResponse](./Models/course_api.CreateChapterResponse.md)
@@ -75,8 +76,8 @@ All URIs are relative to *http://localhost*
  - [course_api.GenChapterScoreRequest](./Models/course_api.GenChapterScoreRequest.md)
  - [course_api.GenChapterScoreResponse](./Models/course_api.GenChapterScoreResponse.md)
  - [course_api.GenCourseFinishRequest](./Models/course_api.GenCourseFinishRequest.md)
- - [course_api.GetChapterByIDRequest](./Models/course_api.GetChapterByIDRequest.md)
- - [course_api.GetChapterByIDResponse](./Models/course_api.GetChapterByIDResponse.md)
+ - [course_api.GetChaptersByUserIDRequest](./Models/course_api.GetChaptersByUserIDRequest.md)
+ - [course_api.GetChaptersByUserIDResponse](./Models/course_api.GetChaptersByUserIDResponse.md)
  - [course_api.GetChaptersRequest](./Models/course_api.GetChaptersRequest.md)
  - [course_api.GetChaptersResponse](./Models/course_api.GetChaptersResponse.md)
  - [course_api.GetCourseRequest](./Models/course_api.GetCourseRequest.md)

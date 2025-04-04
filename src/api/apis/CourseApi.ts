@@ -22,7 +22,7 @@ import type {
   CourseApiFinishCourseRequest,
   CourseApiGenChapterScoreRequest,
   CourseApiGenCourseFinishRequest,
-  CourseApiGetChapterByIDRequest,
+  CourseApiGetChaptersByUserIDRequest,
   CourseApiGetChaptersRequest,
   CourseApiGetCourseRequest,
   CourseApiGetCourseStudentsRequest,
@@ -36,7 +36,7 @@ import type {
   CourseFinishCoursePost200Response,
   CourseGenChapterScorePost200Response,
   CourseGenCourseFinishPost200Response,
-  CourseGetChapterByIdPost200Response,
+  CourseGetChaptersByUserIdPost200Response,
   CourseGetChaptersPost200Response,
   CourseGetCoursePost200Response,
   CourseGetCourseStudentsPost200Response,
@@ -60,8 +60,8 @@ import {
     CourseApiGenChapterScoreRequestToJSON,
     CourseApiGenCourseFinishRequestFromJSON,
     CourseApiGenCourseFinishRequestToJSON,
-    CourseApiGetChapterByIDRequestFromJSON,
-    CourseApiGetChapterByIDRequestToJSON,
+    CourseApiGetChaptersByUserIDRequestFromJSON,
+    CourseApiGetChaptersByUserIDRequestToJSON,
     CourseApiGetChaptersRequestFromJSON,
     CourseApiGetChaptersRequestToJSON,
     CourseApiGetCourseRequestFromJSON,
@@ -88,8 +88,8 @@ import {
     CourseGenChapterScorePost200ResponseToJSON,
     CourseGenCourseFinishPost200ResponseFromJSON,
     CourseGenCourseFinishPost200ResponseToJSON,
-    CourseGetChapterByIdPost200ResponseFromJSON,
-    CourseGetChapterByIdPost200ResponseToJSON,
+    CourseGetChaptersByUserIdPost200ResponseFromJSON,
+    CourseGetChaptersByUserIdPost200ResponseToJSON,
     CourseGetChaptersPost200ResponseFromJSON,
     CourseGetChaptersPost200ResponseToJSON,
     CourseGetCoursePost200ResponseFromJSON,
@@ -134,8 +134,8 @@ export interface CourseGenCourseFinishPostRequest {
     data: CourseApiGenCourseFinishRequest;
 }
 
-export interface CourseGetChapterByIdPostRequest {
-    data: CourseApiGetChapterByIDRequest;
+export interface CourseGetChaptersByUserIdPostRequest {
+    data: CourseApiGetChaptersByUserIDRequest;
 }
 
 export interface CourseGetChaptersPostRequest {
@@ -441,11 +441,11 @@ export class CourseApi extends runtime.BaseAPI {
      * 获取章节信息
      * 获取章节信息
      */
-    async courseGetChapterByIdPostRaw(requestParameters: CourseGetChapterByIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseGetChapterByIdPost200Response>> {
+    async courseGetChaptersByUserIdPostRaw(requestParameters: CourseGetChaptersByUserIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseGetChaptersByUserIdPost200Response>> {
         if (requestParameters['data'] == null) {
             throw new runtime.RequiredError(
                 'data',
-                'Required parameter "data" was null or undefined when calling courseGetChapterByIdPost().'
+                'Required parameter "data" was null or undefined when calling courseGetChaptersByUserIdPost().'
             );
         }
 
@@ -456,22 +456,22 @@ export class CourseApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/course/get_chapter_by_id`,
+            path: `/course/get_chapters_by_user_id`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CourseApiGetChapterByIDRequestToJSON(requestParameters['data']),
+            body: CourseApiGetChaptersByUserIDRequestToJSON(requestParameters['data']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CourseGetChapterByIdPost200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CourseGetChaptersByUserIdPost200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 获取章节信息
      * 获取章节信息
      */
-    async courseGetChapterByIdPost(requestParameters: CourseGetChapterByIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseGetChapterByIdPost200Response> {
-        const response = await this.courseGetChapterByIdPostRaw(requestParameters, initOverrides);
+    async courseGetChaptersByUserIdPost(requestParameters: CourseGetChaptersByUserIdPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseGetChaptersByUserIdPost200Response> {
+        const response = await this.courseGetChaptersByUserIdPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -52,7 +52,7 @@ export default function Home() {
       toast.error("创建课程失败");
       return;
     }
-    router.push(`/course/${newCourseId}`);
+    router.push(`/edit?courseId=${newCourseId}`);
   };
   return (
     <div className="w-full p-16 flex flex-col gap-11 justify-center items-center">
