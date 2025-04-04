@@ -35,7 +35,7 @@ import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 export default function Edit() {
   const searchParams = useSearchParams();
-  const courseId = searchParams.get("courseId");
+  const courseId = Number(searchParams.get("courseId") || 0);
   const useCourseData = useCourse(courseId ?? undefined);
 
   return (
@@ -104,6 +104,7 @@ function CourseEditor({
         courseID: newCourse.courseID,
         courseName: newCourse.courseName,
         description: newCourse.description,
+        cover: newCourse.cover,
       },
     });
     if (res.code) {
@@ -129,6 +130,14 @@ function CourseEditor({
           value={newCourse.description}
           onChange={(e) =>
             setNewCourse({ ...newCourse, description: e.target.value })
+          }
+        />
+      </LabelWrapper>
+      <LabelWrapper label="课程封面图片链接">
+        <Input
+          value={newCourse.cover}
+          onChange={(e) =>
+            setNewCourse({ ...newCourse, cover: e.target.value })
           }
         />
       </LabelWrapper>

@@ -11,7 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
-import useAuth from "@/hooks/useAuth";
+import useAuth, { Role } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { ModelsCourseModel } from "@/api/models/ModelsCourseModel";
 import {
@@ -30,6 +30,7 @@ const courseApi = new CourseApi(apiClient);
 const userApi = new UserApi(apiClient);
 export default function Home() {
   const router = useRouter();
+  const auth = useAuth();
   const [courseList, setCourseList] = useState<ModelsCourseModel[]>([]);
   useEffect(() => {
     const fetchCourseList = async () => {
@@ -46,7 +47,9 @@ export default function Home() {
 
   const handleCreateCourse = async () => {
     const res = await courseApi.courseCreateCoursePost({
-      data: {},
+      data: {
+        createrID: Number(auth.userInfo?.userId || 0),
+      },
     });
     const newCourseId = res.data?.courseID;
     if (!newCourseId) {
@@ -183,6 +186,33 @@ function CourseDetail({ course }: { course: ModelsCourseModel }) {
         </div>
       </div>
       <div className="flex flex-col gap-2">
+        <Button
+          variant="outline"
+          onClick={() => {
+            window.location.href = `/edit?courseId=${course.courseID}`;
+          }}
+        >
+          编辑课程
+        </Button>
+        <Button
+          variant="destructive"
+          onClick={async () => {
+            const res = await courseApi.courseDeleteCoursePost({
+              data: {
+                courseID: course.courseID,
+              },
+            });
+            if (res.code) {
+              toast.error(res.msg);
+              return;
+            }
+            toast.success("删除课程成功");
+            window.location.href = "/";
+          }}
+        >
+          删除课程
+        </Button>
+
         <Button
           variant="outline"
           disabled={getIsInCourse()}
