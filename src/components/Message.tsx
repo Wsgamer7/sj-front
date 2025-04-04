@@ -1,6 +1,6 @@
 import { Message, MessageType } from "@/hooks/useMessages";
 import { cn } from "@/lib/utils";
-
+import Markdown from "markdown-to-jsx";
 const SingleMessageAI = ({
   message,
   className,
@@ -9,13 +9,13 @@ const SingleMessageAI = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("flex gap-3 p-4", className)}>
+    <div className={cn("flex gap-3 p-4 rounded-md", className)}>
       <div className="flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-md border bg-background shadow">
         <span className="text-sm font-medium">AI</span>
       </div>
       <div className="flex-1 space-y-2">
         <div className="prose prose-sm dark:prose-invert">
-          {message.content}
+          <Markdown>{message.content}</Markdown>
         </div>
       </div>
     </div>
@@ -30,13 +30,10 @@ const SingleMessageUser = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("flex gap-3 p-4", className)}>
-      <div className="flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-md border bg-background shadow">
-        <span className="text-sm font-medium">U</span>
-      </div>
+    <div className={cn("flex gap-3 p-4 rounded-md", className)}>
       <div className="flex-1 space-y-2">
         <div className="prose prose-sm dark:prose-invert">
-          {message.content}
+          <Markdown>{message.content}</Markdown>
         </div>
       </div>
     </div>
@@ -54,7 +51,7 @@ const Messages = ({
     return <NoMessagesUI className={className} />;
   }
   return (
-    <div className={cn("flex flex-col gap-4 p-4", className)}>
+    <div className={cn("flex flex-col gap-4 p-4 overflow-y-auto", className)}>
       {messagesData.map((message, index) => (
         <div
           key={index}
@@ -74,10 +71,7 @@ const Messages = ({
             )}
           >
             {message.type === MessageType.User ? (
-              <SingleMessageUser
-                message={message}
-                className="bg-primary text-primary-foreground"
-              />
+              <SingleMessageUser message={message} className="bg-muted" />
             ) : (
               <SingleMessageAI message={message} className="bg-muted" />
             )}
@@ -97,7 +91,7 @@ const NoMessagesUI = ({ className }: { className?: string }) => {
       )}
     >
       <div className="text-center text-sm text-muted-foreground">
-        No messages yet
+        无聊天记录
       </div>
     </div>
   );

@@ -12,17 +12,6 @@ import {
 } from "@/components/ui/sidebar";
 const courseApi = new CourseApi(apiClient);
 
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, useForm, UseFormReturn } from "react-hook-form";
-import {
-  FormDescription,
-  FormMessage,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AppSidebar } from "@/components/app-sidebar";

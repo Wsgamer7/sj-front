@@ -11,6 +11,8 @@ import { MessageApi } from "@/api";
 import apiClient from "@/lib/apiConfig";
 import useAuth from "@/hooks/useAuth";
 import { Label } from "@radix-ui/react-label";
+import Navbar from "@/components/Navbar";
+import Markdown from "markdown-to-jsx";
 const messageApi = new MessageApi(apiClient);
 
 export default function Chat() {
@@ -18,6 +20,14 @@ export default function Chat() {
   const courseId = Number(searchParams.get("courseId"));
   const [isLoading, setIsLoading] = useState(false);
   const useCourseData = useCourse(courseId ?? undefined, setIsLoading);
+
+  useEffect(() => {
+    //让body无法滚动
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return (
     <>
@@ -40,8 +50,8 @@ function TrueChat({ useCourseData }: { useCourseData: useCourseReturn }) {
     const selectedChapter = useCourseData.chapters[chapterIndex];
     const res = await messageApi.messageGetConversationIdPost({
       data: {
-        courseID: useCourseData.course?.id || 0,
-        chapterID: selectedChapter.id,
+        courseID: useCourseData.course?.courseID || 0,
+        chapterID: selectedChapter?.chapterID || 0,
         userID: Number(auth.userInfo?.userId || 0),
       },
     });
@@ -55,23 +65,29 @@ function TrueChat({ useCourseData }: { useCourseData: useCourseReturn }) {
         selectedChapterIndex={useCourseData.selectedChapterIndex}
         setSelectedChapterIndex={handleSelectChapter}
       />
-      <main className="w-full ">
-        <SidebarTrigger />
-        <div>
+      <main className="w-full h-screen">
+        <Navbar />
+        <div
+          style={{
+            height: "calc(100% - 60px)",
+          }}
+        >
           {useCourseData.isSelectCourse && useCourseData.course && (
             <div className="p-4">
               <Label className="text-2xl font-bold">
                 {useCourseData.course.courseName}
               </Label>
               <p className="text-sm text-gray-500">
-                {useCourseData.course.description}
+                <Markdown>{useCourseData.course.description || ""}</Markdown>
               </p>
             </div>
           )}
           {!useCourseData.isSelectCourse && useCourseData.selectedChapter && (
-            <div>
-              <h1>Chapter chatter</h1>
-              <Messages messagesData={messages} />
+            <div className="flex flex-col gap-4 p-4 h-full">
+              <Label className="text-2xl font-bold self-center">
+                {`${useCourseData.selectedChapter.chapterName}`}
+              </Label>
+              <Messages messagesData={messages} className="flex-1" />
               <ChatInput onSend={sendMessage} />
             </div>
           )}
