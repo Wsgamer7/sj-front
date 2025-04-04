@@ -19,7 +19,7 @@ export default function Chat() {
   const searchParams = useSearchParams();
   const courseId = Number(searchParams.get("courseId"));
   const [isLoading, setIsLoading] = useState(false);
-  const useCourseData = useCourse(courseId ?? undefined, setIsLoading);
+  const useCourseData = useCourse(courseId ?? undefined, setIsLoading, true);
 
   useEffect(() => {
     //让body无法滚动

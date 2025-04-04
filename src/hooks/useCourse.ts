@@ -158,6 +158,7 @@ export default function useCourse(
       return;
     }
     const newChapterIndex = selectedChapter.index!;
+    console.log("newIndex", selectedChapter.chapterID);
     const newChapterIndexToScore = {
       ...chapterIndexToScore,
       [newChapterIndex]: res.data?.score || 0,

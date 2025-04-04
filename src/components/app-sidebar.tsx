@@ -80,12 +80,16 @@ export function AppSidebar({
                           "text-sm absolute right-2 top-1/2 -translate-y-1/2"
                         )}
                         style={{
-                          display: getScoreByIndex?.(index)! ? "block" : "none",
+                          display: getScoreByIndex?.(chapter.index!)!
+                            ? "block"
+                            : "none",
                           color:
-                            getScoreByIndex?.(index)! > 60 ? "green" : "red",
+                            getScoreByIndex?.(chapter.index!)! > 60
+                              ? "green"
+                              : "red",
                         }}
                       >
-                        {getScoreByIndex?.(index)!}
+                        {getScoreByIndex?.(chapter.index!)}
                       </div>
                     )}
                   </SidebarMenuItem>
