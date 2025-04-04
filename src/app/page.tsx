@@ -14,10 +14,17 @@ import Image from "next/image";
 import useAuth from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { ModelsCourseModel } from "@/api/models/ModelsCourseModel";
-import { CourseApi, ModelsUserModel } from "@/api";
+import {
+  CourseApi,
+  CourseApiCourseUserInfo,
+  ModelsUserModel,
+  UserApi,
+} from "@/api";
 import apiClient from "@/lib/apiConfig";
 import { Button } from "@/components/ui/button";
+import { Card, CardFooter } from "@/components/ui/card";
 const courseApi = new CourseApi(apiClient);
+const userApi = new UserApi(apiClient);
 export default function Home() {
   const [courseList, setCourseList] = useState<ModelsCourseModel[]>([]);
   useEffect(() => {
@@ -35,8 +42,10 @@ export default function Home() {
 
   const handleCreateCourse = () => {};
   return (
-    <div className="w-full flex flex-col gap-4 justify-center items-center">
-      <Button onClick={handleCreateCourse}>创建课程</Button>
+    <div className="w-full p-16 flex flex-col gap-11 justify-center items-center">
+      <Button size="lg" onClick={handleCreateCourse}>
+        创建课程
+      </Button>
       <CourseList courseList={courseList} />
     </div>
   );
@@ -44,7 +53,7 @@ export default function Home() {
 
 function CourseList({ courseList }: { courseList: ModelsCourseModel[] }) {
   return (
-    <div className="w-full flex gap-2 flex-wrap">
+    <div className="w-full flex gap-4 flex-wrap">
       {courseList.map((course) => (
         <SingleCourse key={course.courseID} course={course} />
       ))}
@@ -55,9 +64,17 @@ function CourseList({ courseList }: { courseList: ModelsCourseModel[] }) {
 function SingleCourse({ course }: { course: ModelsCourseModel }) {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <div>{course.courseName}</div>
-      </SheetTrigger>
+      <div className="flex flex-col gap-2 justify-center items-center relative w-[300px] aspect-video">
+        <SheetTrigger asChild>
+          <img
+            className="rounded-md cursor-pointer hover:scale-105 transition-all duration-300"
+            src={course.cover || ""}
+            alt={course.courseName || ""}
+          />
+        </SheetTrigger>
+        <div className="text-2xl font-mono">{course.courseName}</div>
+      </div>
+
       <SheetContent>
         <CourseDetail course={course} />
       </SheetContent>
@@ -66,15 +83,100 @@ function SingleCourse({ course }: { course: ModelsCourseModel }) {
 }
 
 function CourseDetail({ course }: { course: ModelsCourseModel }) {
+  const { userInfo } = useAuth();
   const [teacher, setTeacher] = useState<ModelsUserModel | undefined>(
     undefined
   );
-  const [studentList, setStudentList] = useState<ModelsUserModel[]>([]);
-  useEffect(() => {}, []);
+  const [studentList, setStudentList] = useState<CourseApiCourseUserInfo[]>([]);
+  useEffect(() => {
+    const fetchTeacher = async () => {
+      const res = await userApi.userGetUserInfoByIdPost({
+        data: {
+          userID: course.createrID,
+        },
+      });
+      if (res.code) {
+        throw new Error("获取教师信息失败");
+      }
+      setTeacher(res.data?.userInfo);
+    };
+    const fetchStudentList = async () => {
+      const res = await courseApi.courseGetCourseStudentsPost({
+        data: {
+          courseID: course.courseID,
+        },
+      });
+      if (res.code) {
+        throw new Error("获取学生列表失败");
+      }
+      setStudentList(res.data?.user_infos || []);
+    };
+    fetchTeacher();
+    fetchStudentList();
+  }, []);
+  const handleJoinCourse = () => {
+    if (!userInfo) {
+      return;
+    }
+    courseApi.courseJoinCoursePost({
+      data: {
+        courseID: course.courseID,
+        userID: Number(userInfo.userId),
+      },
+    });
+  };
   return (
-    <div>
-      <div>{course.courseName}</div>
-      <div>{course.description}</div>
+    <div className="flex flex-col justify-between h-full p-5 ">
+      <div className="flex flex-col gap-4">
+        <div className="text-2xl font-bold">{course.courseName}</div>
+        <div className="text-sm text-gray-500">{course.description}</div>
+        <div className="flex flex-col gap-2">
+          <div className="text-lg font-bold">教师</div>
+          <div className="relative flex gap-2 items-center">
+            <img
+              className="rounded-full w-10 h-10"
+              src={teacher?.avatar || ""}
+              alt={teacher?.nickname || ""}
+            />
+            <div className="text-sm text-gray-500">{teacher?.nickname}</div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <div className="text-lg font-bold">学生</div>
+          <div className="text-sm text-gray-500 max-h-[300px] overflow-y-auto">
+            {studentList.map((item) => (
+              <StudentBar
+                key={item.user?.userID}
+                student={item.user!}
+                passed={item.passed || false}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+      <Button onClick={handleJoinCourse}>加入课程</Button>
+    </div>
+  );
+}
+
+function StudentBar({
+  student,
+  passed,
+}: {
+  student: ModelsUserModel;
+  passed: boolean;
+}) {
+  return (
+    <div className="flex gap-2 items-center">
+      <img
+        className="rounded-full w-10 h-10"
+        src={student.avatar || ""}
+        alt={student.nickname || ""}
+      />
+      <div className="text-sm text-gray-500">{student.nickname}</div>
+      <div className="text-sm text-gray-500">{student.userID}</div>
+      {passed && <div className="text-sm text-green-500">已通过</div>}
+      {!passed && <div className="text-sm text-red-500">未通过</div>}
     </div>
   );
 }
