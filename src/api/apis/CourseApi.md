@@ -8,7 +8,6 @@ All URIs are relative to *http://localhost*
 | [**courseCreateConversationPost**](CourseApi.md#courseCreateConversationPost) | **POST** /course/create_conversation | 创建会话 |
 | [**courseCreateCoursePost**](CourseApi.md#courseCreateCoursePost) | **POST** /course/create_course | 创建课程 |
 | [**courseDeleteChapterPost**](CourseApi.md#courseDeleteChapterPost) | **POST** /course/delete_chapter | 删除章节 |
-| [**courseFinishCoursePost**](CourseApi.md#courseFinishCoursePost) | **POST** /course/finish_course | 完成课程 |
 | [**courseGenChapterScorePost**](CourseApi.md#courseGenChapterScorePost) | **POST** /course/gen_chapter_score | 生成章节分数 |
 | [**courseGenCourseFinishPost**](CourseApi.md#courseGenCourseFinishPost) | **POST** /course/gen_course_finish | 生成课程完成状态 |
 | [**courseGetChaptersByUserIdPost**](CourseApi.md#courseGetChaptersByUserIdPost) | **POST** /course/get_chapters_by_user_id | 获取章节信息 |
@@ -18,6 +17,7 @@ All URIs are relative to *http://localhost*
 | [**courseJoinCoursePost**](CourseApi.md#courseJoinCoursePost) | **POST** /course/join_course | 加入课程 |
 | [**courseScanAllCoursePost**](CourseApi.md#courseScanAllCoursePost) | **POST** /course/scan_all_course | 扫描所有课程 |
 | [**courseScanCoursePost**](CourseApi.md#courseScanCoursePost) | **POST** /course/scan_course | 扫描课程 |
+| [**courseUpdateChapterPost**](CourseApi.md#courseUpdateChapterPost) | **POST** /course/update_chapter | 更新章节 |
 | [**courseUpdateCoursePost**](CourseApi.md#courseUpdateCoursePost) | **POST** /course/update_course | 更新课程 |
 
 
@@ -119,33 +119,6 @@ No authorization required
 ### Return type
 
 [**_course_delete_chapter_post_200_response**](../Models/_course_delete_chapter_post_200_response.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-<a name="courseFinishCoursePost"></a>
-# **courseFinishCoursePost**
-> _course_finish_course_post_200_response courseFinishCoursePost(data)
-
-完成课程
-
-    完成课程
-
-### Parameters
-
-|Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **data** | [**course_api.FinishCourseRequest**](../Models/course_api.FinishCourseRequest.md)| 完成课程请求参数 | |
-
-### Return type
-
-[**_course_finish_course_post_200_response**](../Models/_course_finish_course_post_200_response.md)
 
 ### Authorization
 
@@ -389,6 +362,33 @@ No authorization required
 ### Return type
 
 [**_course_scan_course_post_200_response**](../Models/_course_scan_course_post_200_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+<a name="courseUpdateChapterPost"></a>
+# **courseUpdateChapterPost**
+> _course_update_chapter_post_200_response courseUpdateChapterPost(data)
+
+更新章节
+
+    更新章节
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **data** | [**course_api.UpdateChapterRequest**](../Models/course_api.UpdateChapterRequest.md)| 更新章节请求参数 | |
+
+### Return type
+
+[**_course_update_chapter_post_200_response**](../Models/_course_update_chapter_post_200_response.md)
 
 ### Authorization
 

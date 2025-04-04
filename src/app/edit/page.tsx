@@ -62,6 +62,7 @@ export default function Edit() {
             courseId={Number(courseId)}
           />
         }
+        deleteChapter={useCourseData.deleteChapter}
       />
       <main className="w-full ">
         <SidebarTrigger />
@@ -75,7 +76,7 @@ export default function Edit() {
             </div>
           )}
           {!useCourseData.isSelectCourse && useCourseData.selectedChapter && (
-            <div className="w-full h-full bg-blue-500">
+            <div className="w-full h-full">
               <ChapterEdit
                 initChapter={useCourseData.selectedChapter}
                 setChapter={useCourseData.updateSelectedChapter}
@@ -104,6 +105,21 @@ function CourseEditor({
   setCourse: (course: ModelsCourseModel) => void;
 }) {
   const [newCourse, setNewCourse] = useState<ModelsCourseModel>(initCourse);
+  const handleSaveCourse = async () => {
+    setCourse(newCourse);
+    const res = await courseApi.courseUpdateCoursePost({
+      data: {
+        courseID: newCourse.courseID,
+        courseName: newCourse.courseName,
+        description: newCourse.description,
+      },
+    });
+    if (res.code) {
+      toast.error(res.msg);
+      return;
+    }
+    toast.success("保存成功");
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -125,7 +141,7 @@ function CourseEditor({
         />
       </LabelWrapper>
       <div>
-        <Button onClick={() => setCourse(newCourse)}>Save</Button>
+        <Button onClick={handleSaveCourse}>Save</Button>
       </div>
     </div>
   );
@@ -139,22 +155,46 @@ function ChapterEdit({
   setChapter: (chapter: ModelsChapterModel) => void;
 }) {
   const [newChapter, setNewChapter] = useState<ModelsChapterModel>(initChapter);
+  useEffect(() => {
+    setNewChapter(initChapter);
+  }, [initChapter]);
+
+  const handleSaveChapter = async () => {
+    const res = await courseApi.courseUpdateChapterPost({
+      data: {
+        chapter: newChapter,
+      },
+    });
+    if (res.code) {
+      toast.error(res.msg);
+      return;
+    }
+    setChapter(newChapter);
+    toast.success("保存成功");
+  };
 
   return (
-    <div>
-      <Input
-        value={newChapter.chapterName}
-        onChange={(e) =>
-          setNewChapter({ ...newChapter, chapterName: e.target.value })
-        }
-      />
-      <Input
-        value={newChapter.description}
-        onChange={(e) =>
-          setNewChapter({ ...newChapter, description: e.target.value })
-        }
-      />
-      <Button onClick={() => setChapter(newChapter)}>Save</Button>
+    <div className="flex flex-col gap-2">
+      <LabelWrapper label="章节名称">
+        <Input
+          value={newChapter.chapterName}
+          onChange={(e) =>
+            setNewChapter({ ...newChapter, chapterName: e.target.value })
+          }
+        />
+      </LabelWrapper>
+      <LabelWrapper label="章节内容">
+        <Textarea
+          value={newChapter.description}
+          onChange={(e) =>
+            setNewChapter({ ...newChapter, description: e.target.value })
+          }
+          className="h-[400px]"
+        />
+      </LabelWrapper>
+      <div>
+        <Button onClick={handleSaveChapter}>Save</Button>
+      </div>
     </div>
   );
 }

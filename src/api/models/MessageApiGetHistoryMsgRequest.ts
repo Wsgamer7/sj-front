@@ -24,19 +24,7 @@ export interface MessageApiGetHistoryMsgRequest {
      * @type {number}
      * @memberof MessageApiGetHistoryMsgRequest
      */
-    chapterID?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof MessageApiGetHistoryMsgRequest
-     */
-    courseID?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof MessageApiGetHistoryMsgRequest
-     */
-    userID?: number;
+    conversationID?: number;
 }
 
 /**
@@ -56,9 +44,7 @@ export function MessageApiGetHistoryMsgRequestFromJSONTyped(json: any, ignoreDis
     }
     return {
         
-        'chapterID': json['chapterID'] == null ? undefined : json['chapterID'],
-        'courseID': json['courseID'] == null ? undefined : json['courseID'],
-        'userID': json['userID'] == null ? undefined : json['userID'],
+        'conversationID': json['conversationID'] == null ? undefined : json['conversationID'],
     };
 }
 
@@ -73,9 +59,7 @@ export function MessageApiGetHistoryMsgRequestFromJSONTyped(json: any, ignoreDis
 
     return {
         
-        'chapterID': value['chapterID'],
-        'courseID': value['courseID'],
-        'userID': value['userID'],
+        'conversationID': value['conversationID'],
     };
 }
 

@@ -21,12 +21,6 @@ import { mapValues } from '../runtime';
 export interface MessageApiSendMsgRequest {
     /**
      * 
-     * @type {number}
-     * @memberof MessageApiSendMsgRequest
-     */
-    chapterID?: number;
-    /**
-     * 
      * @type {string}
      * @memberof MessageApiSendMsgRequest
      */
@@ -36,13 +30,7 @@ export interface MessageApiSendMsgRequest {
      * @type {number}
      * @memberof MessageApiSendMsgRequest
      */
-    courseID?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof MessageApiSendMsgRequest
-     */
-    userID?: number;
+    conversationID?: number;
 }
 
 /**
@@ -62,10 +50,8 @@ export function MessageApiSendMsgRequestFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'chapterID': json['chapterID'] == null ? undefined : json['chapterID'],
         'content': json['content'] == null ? undefined : json['content'],
-        'courseID': json['courseID'] == null ? undefined : json['courseID'],
-        'userID': json['userID'] == null ? undefined : json['userID'],
+        'conversationID': json['conversationID'] == null ? undefined : json['conversationID'],
     };
 }
 
@@ -80,10 +66,8 @@ export function MessageApiSendMsgRequestFromJSONTyped(json: any, ignoreDiscrimin
 
     return {
         
-        'chapterID': value['chapterID'],
         'content': value['content'],
-        'courseID': value['courseID'],
-        'userID': value['userID'],
+        'conversationID': value['conversationID'],
     };
 }
 

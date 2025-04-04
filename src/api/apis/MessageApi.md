@@ -4,9 +4,37 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**messageCreateConversationPost**](MessageApi.md#messageCreateConversationPost) | **POST** /message/create_conversation | 创建对话 |
 | [**messageGetHistoryMsgPost**](MessageApi.md#messageGetHistoryMsgPost) | **POST** /message/get_history_msg | 获取历史消息 |
 | [**messageSendMsgPost**](MessageApi.md#messageSendMsgPost) | **POST** /message/send_msg | 发送消息 |
 
+
+<a name="messageCreateConversationPost"></a>
+# **messageCreateConversationPost**
+> _message_create_conversation_post_200_response messageCreateConversationPost(data)
+
+创建对话
+
+    创建对话
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **data** | [**message_api.CreateConversationRequest**](../Models/message_api.CreateConversationRequest.md)| 创建对话请求参数 | |
+
+### Return type
+
+[**_message_create_conversation_post_200_response**](../Models/_message_create_conversation_post_200_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 <a name="messageGetHistoryMsgPost"></a>
 # **messageGetHistoryMsgPost**

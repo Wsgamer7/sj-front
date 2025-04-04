@@ -22,12 +22,14 @@ export function AppSidebar({
   selectedChapterIndex,
   setSelectedChapterIndex,
   addChapterBtn,
+  deleteChapter,
 }: {
   course?: ModelsCourseModel;
   chapters: ModelsChapterModel[];
   selectedChapterIndex: number;
   setSelectedChapterIndex: (index: number) => void;
   addChapterBtn?: React.ReactNode;
+  deleteChapter?: (chapterID?: number) => void;
 }) {
   const pathname = usePathname();
   const canDelete = pathname.includes("edit");
@@ -56,12 +58,13 @@ export function AppSidebar({
                     )}
                     onClick={() => setSelectedChapterIndex(index)}
                   >
-                    {chapter.chapterName}
+                    {`第${chapter.index}节: ${chapter.chapterName}`}
                     {canDelete && (
                       <X
-                        className="w-4 h-4 hidden group-hover/item:block absolute cursor-pointer right-2 top-1/2 -translate-y-1/2"
+                        className="w-4 h-4 hover:bg-gray-300 hidden rounded-xs group-hover/item:block absolute cursor-pointer right-2 top-1/2 -translate-y-1/2"
                         onClick={(e) => {
                           e.stopPropagation();
+                          deleteChapter?.(chapter.chapterID);
                         }}
                       />
                     )}

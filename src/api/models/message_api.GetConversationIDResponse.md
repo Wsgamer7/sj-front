@@ -1,4 +1,4 @@
-# message_api.GetHistoryMsgRequest
+# message_api.GetConversationIDResponse
 ## Properties
 
 | Name | Type | Description | Notes |

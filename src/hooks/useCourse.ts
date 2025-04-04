@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import apiClient from "@/lib/apiConfig";
 import { CourseApi } from "@/api";
+import { toast } from "sonner";
 const courseApi = new CourseApi(apiClient);
 
 interface useCourseReturn {
@@ -20,6 +21,7 @@ interface useCourseReturn {
   setChapters: (chapters: ModelsChapterModel[]) => void;
   updateSelectedChapter: (chapter: ModelsChapterModel) => void;
   addChapter: (index: number, chapter: ModelsChapterModel) => void;
+  deleteChapter: (chapterID?: number) => void;
 }
 
 export default function useCourse(courseId?: string): useCourseReturn {
@@ -50,7 +52,10 @@ export default function useCourse(courseId?: string): useCourseReturn {
           courseID: Number(courseId),
         },
       });
-      setChapters(res.data?.chapters || []);
+      setChapters(
+        res.data?.chapters?.sort((a, b) => (a.index || 0) - (b.index || 0)) ||
+          []
+      );
     };
     fetchCourse();
     fetchChapters();
@@ -66,10 +71,35 @@ export default function useCourse(courseId?: string): useCourseReturn {
     setChapters(newChapters);
   };
 
+  //index是chapter.index
   const addChapter = (index: number, chapter: ModelsChapterModel) => {
-    const newChapters = [...chapters];
-    newChapters.splice(index, 0, chapter);
+    const newChapters = [...chapters, chapter];
+    newChapters.sort((a, b) => (a.index || 0) - (b.index || 0));
     setChapters(newChapters);
+    const foucsArrIndex = newChapters.findIndex(
+      (item) => item.index === chapter.index
+    );
+    setSelectedChapterIndex(foucsArrIndex);
+  };
+
+  const deleteChapter = async (chapterID?: number) => {
+    if (!chapterID) {
+      return;
+    }
+    const newChapters = chapters.filter((item) => item.chapterID !== chapterID);
+    newChapters.sort((a, b) => (a.index || 0) - (b.index || 0));
+    const res = await courseApi.courseDeleteChapterPost({
+      data: {
+        chapterID: chapterID,
+      },
+    });
+    if (res.code) {
+      toast.error(res.msg);
+      return;
+    }
+    toast.success("删除成功");
+    setChapters(newChapters);
+    setSelectedChapterIndex(-1);
   };
 
   return {
@@ -83,5 +113,6 @@ export default function useCourse(courseId?: string): useCourseReturn {
     setChapters,
     updateSelectedChapter,
     addChapter,
+    deleteChapter,
   };
 }
