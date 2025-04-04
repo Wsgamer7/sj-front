@@ -23,11 +23,6 @@ export default function Chat() {
   const handleSelectChapter = (chapterIndex: number) => {
     useCourseData.setSelectedChapterIndex(chapterIndex);
     //换成真的接口
-    setChatMeta({
-      courseId: courseId ?? "",
-      chapterId: chapterIndex,
-      chatId: "",
-    });
   };
   return (
     <SidebarProvider>

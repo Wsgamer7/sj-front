@@ -34,13 +34,13 @@ export default function useCourse(courseId?: string): useCourseReturn {
     }
     const fetchCourse = async () => {
       const res = await courseApi.courseGetCoursePost({
-        courseID: Number(courseId),
+        courseId: Number(courseId),
       });
       setCourse(res.data?.course);
     };
     const fetchChapters = async () => {
       const res = await courseApi.courseGetChaptersPost({
-        courseID: Number(courseId),
+        courseId: Number(courseId),
       });
       setChapters(res.data?.chapters || []);
     };

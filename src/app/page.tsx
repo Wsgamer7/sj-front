@@ -20,10 +20,11 @@ import { Button } from "@/components/ui/button";
 const courseApi = new CourseApi(apiClient);
 export default function Home() {
   const [courseList, setCourseList] = useState<ModelsCourseModel[]>([]);
-
   useEffect(() => {
     const fetchCourseList = async () => {
-      const res = await courseApi.courseScanAllCoursePost();
+      const res = await courseApi.courseScanAllCoursePost({
+        data: {},
+      });
       if (res.code) {
         throw new Error("获取课程列表失败");
       }
