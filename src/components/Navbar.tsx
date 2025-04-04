@@ -60,7 +60,7 @@ export default function Navbar() {
                 <MenubarItem
                   key={course.courseID}
                   onClick={() => {
-                    router.push(`/chat?courseId=${course.courseID}`);
+                    window.location.assign(`/chat?courseId=${course.courseID}`);
                   }}
                 >
                   {course.courseName}
