@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**courseCreateChapterPost**](CourseApi.md#courseCreateChapterPost) | **POST** /course/create_chapter | 创建章节 |
+| [**courseCreateConversationPost**](CourseApi.md#courseCreateConversationPost) | **POST** /course/create_conversation | 创建会话 |
 | [**courseCreateCoursePost**](CourseApi.md#courseCreateCoursePost) | **POST** /course/create_course | 创建课程 |
 | [**courseDeleteChapterPost**](CourseApi.md#courseDeleteChapterPost) | **POST** /course/delete_chapter | 删除章节 |
 | [**courseFinishCoursePost**](CourseApi.md#courseFinishCoursePost) | **POST** /course/finish_course | 完成课程 |
@@ -37,6 +38,33 @@ All URIs are relative to *http://localhost*
 ### Return type
 
 [**_course_create_chapter_post_200_response**](../Models/_course_create_chapter_post_200_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+<a name="courseCreateConversationPost"></a>
+# **courseCreateConversationPost**
+> _course_create_conversation_post_200_response courseCreateConversationPost(data)
+
+创建会话
+
+    创建会话
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **data** | [**course_api.CreateConversationRequest**](../Models/course_api.CreateConversationRequest.md)| 创建会话请求参数 | |
+
+### Return type
+
+[**_course_create_conversation_post_200_response**](../Models/_course_create_conversation_post_200_response.md)
 
 ### Authorization
 

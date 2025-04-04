@@ -24,7 +24,7 @@ export interface UserApiRegisterResponse {
      * @type {string}
      * @memberof UserApiRegisterResponse
      */
-    response?: string;
+    token?: string;
 }
 
 /**
@@ -44,7 +44,7 @@ export function UserApiRegisterResponseFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'response': json['response'] == null ? undefined : json['response'],
+        'token': json['token'] == null ? undefined : json['token'],
     };
 }
 
@@ -59,7 +59,7 @@ export function UserApiRegisterResponseFromJSONTyped(json: any, ignoreDiscrimina
 
     return {
         
-        'response': value['response'],
+        'token': value['token'],
     };
 }
 

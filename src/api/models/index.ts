@@ -3,6 +3,8 @@
 export * from './CourseApiCourseUserInfo';
 export * from './CourseApiCreateChapterRequest';
 export * from './CourseApiCreateChapterResponse';
+export * from './CourseApiCreateConversationRequest';
+export * from './CourseApiCreateConversationResponse';
 export * from './CourseApiCreateCourseRequest';
 export * from './CourseApiCreateCourseResponse';
 export * from './CourseApiDeleteChapterRequest';
@@ -24,6 +26,7 @@ export * from './CourseApiScanCourseRequest';
 export * from './CourseApiScanCourseResponse';
 export * from './CourseApiUpdateCourseRequest';
 export * from './CourseCreateChapterPost200Response';
+export * from './CourseCreateConversationPost200Response';
 export * from './CourseCreateCoursePost200Response';
 export * from './CourseDeleteChapterPost200Response';
 export * from './CourseFinishCoursePost200Response';

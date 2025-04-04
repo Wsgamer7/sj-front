@@ -65,12 +65,6 @@ export interface ModelsUserModel {
     role?: CtypeRole;
     /**
      * 
-     * @type {number}
-     * @memberof ModelsUserModel
-     */
-    scope?: number;
-    /**
-     * 
      * @type {string}
      * @memberof ModelsUserModel
      */
@@ -108,7 +102,6 @@ export function ModelsUserModelFromJSONTyped(json: any, ignoreDiscriminator: boo
         'id': json['id'] == null ? undefined : json['id'],
         'nickname': json['nickname'] == null ? undefined : json['nickname'],
         'role': json['role'] == null ? undefined : CtypeRoleFromJSON(json['role']),
-        'scope': json['scope'] == null ? undefined : json['scope'],
         'tel': json['tel'] == null ? undefined : json['tel'],
         'userID': json['userID'] == null ? undefined : json['userID'],
     };
@@ -131,7 +124,6 @@ export function ModelsUserModelFromJSONTyped(json: any, ignoreDiscriminator: boo
         'id': value['id'],
         'nickname': value['nickname'],
         'role': CtypeRoleToJSON(value['role']),
-        'scope': value['scope'],
         'tel': value['tel'],
         'userID': value['userID'],
     };

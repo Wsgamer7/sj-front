@@ -4,6 +4,7 @@ Apis/ImageApi.md
 Apis/MessageApi.md
 Apis/UserApi.md
 Models/_course_create_chapter_post_200_response.md
+Models/_course_create_conversation_post_200_response.md
 Models/_course_create_course_post_200_response.md
 Models/_course_delete_chapter_post_200_response.md
 Models/_course_finish_course_post_200_response.md
@@ -29,6 +30,8 @@ Models/_user_set_user_info_post_200_response.md
 Models/course_api.CourseUserInfo.md
 Models/course_api.CreateChapterRequest.md
 Models/course_api.CreateChapterResponse.md
+Models/course_api.CreateConversationRequest.md
+Models/course_api.CreateConversationResponse.md
 Models/course_api.CreateCourseRequest.md
 Models/course_api.CreateCourseResponse.md
 Models/course_api.DeleteChapterRequest.md

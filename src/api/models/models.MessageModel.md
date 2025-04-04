@@ -5,7 +5,9 @@
 |------------ | ------------- | ------------- | -------------|
 | **chapter\_id** | **Integer** |  | [optional] [default to null] |
 | **content** | **String** |  | [optional] [default to null] |
+| **conversation\_id** | **Integer** |  | [optional] [default to null] |
 | **course\_id** | **Integer** |  | [optional] [default to null] |
+| **createdAt** | **String** |  | [optional] [default to null] |
 | **id** | **Integer** |  | [optional] [default to null] |
 | **message\_type** | **Integer** | user 1, ai 2 | [optional] [default to null] |
 | **user\_id** | **Integer** |  | [optional] [default to null] |

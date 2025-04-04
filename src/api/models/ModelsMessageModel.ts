@@ -36,7 +36,19 @@ export interface ModelsMessageModel {
      * @type {number}
      * @memberof ModelsMessageModel
      */
+    conversation_id?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ModelsMessageModel
+     */
     course_id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsMessageModel
+     */
+    createdAt?: string;
     /**
      * 
      * @type {number}
@@ -76,7 +88,9 @@ export function ModelsMessageModelFromJSONTyped(json: any, ignoreDiscriminator: 
         
         'chapter_id': json['chapter_id'] == null ? undefined : json['chapter_id'],
         'content': json['content'] == null ? undefined : json['content'],
+        'conversation_id': json['conversation_id'] == null ? undefined : json['conversation_id'],
         'course_id': json['course_id'] == null ? undefined : json['course_id'],
+        'createdAt': json['createdAt'] == null ? undefined : json['createdAt'],
         'id': json['id'] == null ? undefined : json['id'],
         'message_type': json['message_type'] == null ? undefined : json['message_type'],
         'user_id': json['user_id'] == null ? undefined : json['user_id'],
@@ -96,7 +110,9 @@ export function ModelsMessageModelFromJSONTyped(json: any, ignoreDiscriminator: 
         
         'chapter_id': value['chapter_id'],
         'content': value['content'],
+        'conversation_id': value['conversation_id'],
         'course_id': value['course_id'],
+        'createdAt': value['createdAt'],
         'id': value['id'],
         'message_type': value['message_type'],
         'user_id': value['user_id'],

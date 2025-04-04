@@ -50,7 +50,6 @@ const useAuth = create<AuthState>((set, get) => ({
       throw new Error("注册失败");
     }
     localStorage.setItem("tk", res?.data?.response || "");
-    return await get().fetchUserInfo();
   },
   login: async (userId, password) => {
     const res = await userIpi.userLoginPost({
@@ -63,7 +62,6 @@ const useAuth = create<AuthState>((set, get) => ({
       throw new Error("登录失败");
     }
     localStorage.setItem("tk", res?.data?.token || "");
-    return await get().fetchUserInfo();
   },
   fetchUserInfo: async () => {
     const res = await userIpi.userGetUserInfoPost({

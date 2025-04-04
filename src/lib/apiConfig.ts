@@ -21,6 +21,7 @@ const apiDomain = "http://192.168.1.100:8000";
 export async function clientMiddlewarePre(
   context: RequestContext
 ): Promise<FetchParams | void> {
+  // debugger;
   const tk = localStorage.getItem("tk");
   if (tk) {
     (context.init.headers as Record<string, string>)["Authorization"] = tk;

@@ -9,7 +9,6 @@
 | **id** | **Integer** |  | [optional] [default to null] |
 | **nickname** | **String** |  | [optional] [default to null] |
 | **role** | [**ctype.Role**](ctype.Role.md) | 1 管理员 2 普通用户 | [optional] [default to null] |
-| **scope** | **Integer** |  | [optional] [default to null] |
 | **tel** | **String** |  | [optional] [default to null] |
 | **userID** | **String** |  | [optional] [default to null] |
 

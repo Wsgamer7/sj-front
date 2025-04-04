@@ -8,6 +8,7 @@ All URIs are relative to *http://localhost*
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
 | *CourseApi* | [**courseCreateChapterPost**](Apis/CourseApi.md#coursecreatechapterpost) | **POST** /course/create_chapter | 创建章节 |
+*CourseApi* | [**courseCreateConversationPost**](Apis/CourseApi.md#coursecreateconversationpost) | **POST** /course/create_conversation | 创建会话 |
 *CourseApi* | [**courseCreateCoursePost**](Apis/CourseApi.md#coursecreatecoursepost) | **POST** /course/create_course | 创建课程 |
 *CourseApi* | [**courseDeleteChapterPost**](Apis/CourseApi.md#coursedeletechapterpost) | **POST** /course/delete_chapter | 删除章节 |
 *CourseApi* | [**courseFinishCoursePost**](Apis/CourseApi.md#coursefinishcoursepost) | **POST** /course/finish_course | 完成课程 |
@@ -39,6 +40,7 @@ All URIs are relative to *http://localhost*
 ## Documentation for Models
 
  - [_course_create_chapter_post_200_response](./Models/_course_create_chapter_post_200_response.md)
+ - [_course_create_conversation_post_200_response](./Models/_course_create_conversation_post_200_response.md)
  - [_course_create_course_post_200_response](./Models/_course_create_course_post_200_response.md)
  - [_course_delete_chapter_post_200_response](./Models/_course_delete_chapter_post_200_response.md)
  - [_course_finish_course_post_200_response](./Models/_course_finish_course_post_200_response.md)
@@ -64,6 +66,8 @@ All URIs are relative to *http://localhost*
  - [course_api.CourseUserInfo](./Models/course_api.CourseUserInfo.md)
  - [course_api.CreateChapterRequest](./Models/course_api.CreateChapterRequest.md)
  - [course_api.CreateChapterResponse](./Models/course_api.CreateChapterResponse.md)
+ - [course_api.CreateConversationRequest](./Models/course_api.CreateConversationRequest.md)
+ - [course_api.CreateConversationResponse](./Models/course_api.CreateConversationResponse.md)
  - [course_api.CreateCourseRequest](./Models/course_api.CreateCourseRequest.md)
  - [course_api.CreateCourseResponse](./Models/course_api.CreateCourseResponse.md)
  - [course_api.DeleteChapterRequest](./Models/course_api.DeleteChapterRequest.md)

@@ -21,8 +21,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useAuth, { Role } from "@/hooks/useAuth";
-
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 export function LoginPanel() {
   return (
     <Tabs defaultValue="login" className="w-[400px]">
@@ -79,11 +80,19 @@ function LoginForm() {
 
 function RegisterForm() {
   const userAuth = useAuth();
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState(Role.STUDENT);
   const handleRegister = () => {
-    userAuth.register(username, password, role);
+    userAuth
+      .register(username, password, role)
+      .then((res) => {
+        router.push("/");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
   };
   return (
     <Card>
