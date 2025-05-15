@@ -20,6 +20,30 @@ import { mapValues } from '../runtime';
  */
 export interface ModelsChapterModel {
     /**
+     * 答案1
+     * @type {string}
+     * @memberof ModelsChapterModel
+     */
+    answer1?: string;
+    /**
+     * 答案2
+     * @type {string}
+     * @memberof ModelsChapterModel
+     */
+    answer2?: string;
+    /**
+     * 答案3
+     * @type {string}
+     * @memberof ModelsChapterModel
+     */
+    answer3?: string;
+    /**
+     * 答案4
+     * @type {string}
+     * @memberof ModelsChapterModel
+     */
+    answer4?: string;
+    /**
      * 章节ID
      * @type {number}
      * @memberof ModelsChapterModel
@@ -67,6 +91,30 @@ export interface ModelsChapterModel {
      * @memberof ModelsChapterModel
      */
     index?: number;
+    /**
+     * 题目1
+     * @type {string}
+     * @memberof ModelsChapterModel
+     */
+    topic1?: string;
+    /**
+     * 题目2
+     * @type {string}
+     * @memberof ModelsChapterModel
+     */
+    topic2?: string;
+    /**
+     * 题目3
+     * @type {string}
+     * @memberof ModelsChapterModel
+     */
+    topic3?: string;
+    /**
+     * 题目4
+     * @type {string}
+     * @memberof ModelsChapterModel
+     */
+    topic4?: string;
 }
 
 /**
@@ -86,6 +134,10 @@ export function ModelsChapterModelFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
+        'answer1': json['answer1'] == null ? undefined : json['answer1'],
+        'answer2': json['answer2'] == null ? undefined : json['answer2'],
+        'answer3': json['answer3'] == null ? undefined : json['answer3'],
+        'answer4': json['answer4'] == null ? undefined : json['answer4'],
         'chapterID': json['chapterID'] == null ? undefined : json['chapterID'],
         'chapterName': json['chapterName'] == null ? undefined : json['chapterName'],
         'courseID': json['courseID'] == null ? undefined : json['courseID'],
@@ -94,6 +146,10 @@ export function ModelsChapterModelFromJSONTyped(json: any, ignoreDiscriminator: 
         'difficulty': json['difficulty'] == null ? undefined : json['difficulty'],
         'id': json['id'] == null ? undefined : json['id'],
         'index': json['index'] == null ? undefined : json['index'],
+        'topic1': json['topic1'] == null ? undefined : json['topic1'],
+        'topic2': json['topic2'] == null ? undefined : json['topic2'],
+        'topic3': json['topic3'] == null ? undefined : json['topic3'],
+        'topic4': json['topic4'] == null ? undefined : json['topic4'],
     };
 }
 
@@ -108,6 +164,10 @@ export function ModelsChapterModelFromJSONTyped(json: any, ignoreDiscriminator: 
 
     return {
         
+        'answer1': value['answer1'],
+        'answer2': value['answer2'],
+        'answer3': value['answer3'],
+        'answer4': value['answer4'],
         'chapterID': value['chapterID'],
         'chapterName': value['chapterName'],
         'courseID': value['courseID'],
@@ -116,6 +176,10 @@ export function ModelsChapterModelFromJSONTyped(json: any, ignoreDiscriminator: 
         'difficulty': value['difficulty'],
         'id': value['id'],
         'index': value['index'],
+        'topic1': value['topic1'],
+        'topic2': value['topic2'],
+        'topic3': value['topic3'],
+        'topic4': value['topic4'],
     };
 }
 

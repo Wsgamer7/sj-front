@@ -27,6 +27,7 @@ import type {
   CourseApiGetCourseStudentsRequest,
   CourseApiJoinCourseRequest,
   CourseApiUpdateChapterRequest,
+  CourseApiUpdateChapterTopicScoreRequest,
   CourseApiUpdateCourseRequest,
   CourseCreateChapterPost200Response,
   CourseCreateCoursePost200Response,
@@ -43,6 +44,7 @@ import type {
   CourseScanCoursePost200Response,
   CourseUpdateChapterPost200Response,
   CourseUpdateCoursePost200Response,
+  ResResponse,
 } from '../models/index';
 import {
     CourseApiCreateChapterRequestFromJSON,
@@ -69,6 +71,8 @@ import {
     CourseApiJoinCourseRequestToJSON,
     CourseApiUpdateChapterRequestFromJSON,
     CourseApiUpdateChapterRequestToJSON,
+    CourseApiUpdateChapterTopicScoreRequestFromJSON,
+    CourseApiUpdateChapterTopicScoreRequestToJSON,
     CourseApiUpdateCourseRequestFromJSON,
     CourseApiUpdateCourseRequestToJSON,
     CourseCreateChapterPost200ResponseFromJSON,
@@ -101,6 +105,8 @@ import {
     CourseUpdateChapterPost200ResponseToJSON,
     CourseUpdateCoursePost200ResponseFromJSON,
     CourseUpdateCoursePost200ResponseToJSON,
+    ResResponseFromJSON,
+    ResResponseToJSON,
 } from '../models/index';
 
 export interface CourseCreateChapterPostRequest {
@@ -157,6 +163,10 @@ export interface CourseScanCoursePostRequest {
 
 export interface CourseUpdateChapterPostRequest {
     data: CourseApiUpdateChapterRequest;
+}
+
+export interface CourseUpdateChapterTopicScorePostRequest {
+    data: CourseApiUpdateChapterTopicScoreRequest;
 }
 
 export interface CourseUpdateCoursePostRequest {
@@ -697,6 +707,44 @@ export class CourseApi extends runtime.BaseAPI {
      */
     async courseUpdateChapterPost(requestParameters: CourseUpdateChapterPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseUpdateChapterPost200Response> {
         const response = await this.courseUpdateChapterPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 更新章节话题分数
+     * 更新章节话题分数
+     */
+    async courseUpdateChapterTopicScorePostRaw(requestParameters: CourseUpdateChapterTopicScorePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResResponse>> {
+        if (requestParameters['data'] == null) {
+            throw new runtime.RequiredError(
+                'data',
+                'Required parameter "data" was null or undefined when calling courseUpdateChapterTopicScorePost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/course/update_chapter_topic_score`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CourseApiUpdateChapterTopicScoreRequestToJSON(requestParameters['data']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ResResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 更新章节话题分数
+     * 更新章节话题分数
+     */
+    async courseUpdateChapterTopicScorePost(requestParameters: CourseUpdateChapterTopicScorePostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResResponse> {
+        const response = await this.courseUpdateChapterTopicScorePostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

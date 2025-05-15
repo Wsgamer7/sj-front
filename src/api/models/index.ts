@@ -23,6 +23,7 @@ export * from './CourseApiJoinCourseRequest';
 export * from './CourseApiScanAllCourseResponse';
 export * from './CourseApiScanCourseResponse';
 export * from './CourseApiUpdateChapterRequest';
+export * from './CourseApiUpdateChapterTopicScoreRequest';
 export * from './CourseApiUpdateCourseRequest';
 export * from './CourseCreateChapterPost200Response';
 export * from './CourseCreateCoursePost200Response';

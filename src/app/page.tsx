@@ -96,7 +96,6 @@ function SingleCourse({ course }: { course: ModelsCourseModel }) {
         </SheetTrigger>
         <div className="text-2xl font-mono">{course.courseName}</div>
       </div>
-
       <SheetContent>
         <CourseDetail course={course} />
       </SheetContent>

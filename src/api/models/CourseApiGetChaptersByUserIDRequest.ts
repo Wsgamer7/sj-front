@@ -25,12 +25,6 @@ export interface CourseApiGetChaptersByUserIDRequest {
      * @memberof CourseApiGetChaptersByUserIDRequest
      */
     courseID?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CourseApiGetChaptersByUserIDRequest
-     */
-    userID?: number;
 }
 
 /**
@@ -51,7 +45,6 @@ export function CourseApiGetChaptersByUserIDRequestFromJSONTyped(json: any, igno
     return {
         
         'courseID': json['courseID'] == null ? undefined : json['courseID'],
-        'userID': json['userID'] == null ? undefined : json['userID'],
     };
 }
 
@@ -67,7 +60,6 @@ export function CourseApiGetChaptersByUserIDRequestFromJSONTyped(json: any, igno
     return {
         
         'courseID': value['courseID'],
-        'userID': value['userID'],
     };
 }
 

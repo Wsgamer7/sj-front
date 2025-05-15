@@ -18,6 +18,7 @@ All URIs are relative to *http://localhost*
 | [**courseScanAllCoursePost**](CourseApi.md#courseScanAllCoursePost) | **POST** /course/scan_all_course | 扫描所有课程 |
 | [**courseScanCoursePost**](CourseApi.md#courseScanCoursePost) | **POST** /course/scan_course | 扫描课程 |
 | [**courseUpdateChapterPost**](CourseApi.md#courseUpdateChapterPost) | **POST** /course/update_chapter | 更新章节 |
+| [**courseUpdateChapterTopicScorePost**](CourseApi.md#courseUpdateChapterTopicScorePost) | **POST** /course/update_chapter_topic_score | 更新章节话题分数 |
 | [**courseUpdateCoursePost**](CourseApi.md#courseUpdateCoursePost) | **POST** /course/update_course | 更新课程 |
 
 
@@ -389,6 +390,33 @@ No authorization required
 ### Return type
 
 [**_course_update_chapter_post_200_response**](../Models/_course_update_chapter_post_200_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+<a name="courseUpdateChapterTopicScorePost"></a>
+# **courseUpdateChapterTopicScorePost**
+> res.Response courseUpdateChapterTopicScorePost(data)
+
+更新章节话题分数
+
+    更新章节话题分数
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **data** | [**course_api.UpdateChapterTopicScoreRequest**](../Models/course_api.UpdateChapterTopicScoreRequest.md)| 更新章节话题分数请求参数 | |
+
+### Return type
+
+[**res.Response**](../Models/res.Response.md)
 
 ### Authorization
 

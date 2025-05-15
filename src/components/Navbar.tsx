@@ -39,7 +39,7 @@ export default function Navbar() {
         className="text-2xl font-bold cursor-pointer"
         target="_blank"
       >
-        史杰牛逼.ai
+        Course.ai
       </a>
       <Menubar className="border-none bg-transparent shadow-none">
         <MenubarMenu>

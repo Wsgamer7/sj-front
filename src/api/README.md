@@ -21,6 +21,7 @@ All URIs are relative to *http://localhost*
 *CourseApi* | [**courseScanAllCoursePost**](Apis/CourseApi.md#coursescanallcoursepost) | **POST** /course/scan_all_course | 扫描所有课程 |
 *CourseApi* | [**courseScanCoursePost**](Apis/CourseApi.md#coursescancoursepost) | **POST** /course/scan_course | 扫描课程 |
 *CourseApi* | [**courseUpdateChapterPost**](Apis/CourseApi.md#courseupdatechapterpost) | **POST** /course/update_chapter | 更新章节 |
+*CourseApi* | [**courseUpdateChapterTopicScorePost**](Apis/CourseApi.md#courseupdatechaptertopicscorepost) | **POST** /course/update_chapter_topic_score | 更新章节话题分数 |
 *CourseApi* | [**courseUpdateCoursePost**](Apis/CourseApi.md#courseupdatecoursepost) | **POST** /course/update_course | 更新课程 |
 | *FileApi* | [**filePost**](Apis/FileApi.md#filepost) | **POST** /file | 文件上传 |
 | *ImageApi* | [**imageDelete**](Apis/ImageApi.md#imagedelete) | **DELETE** /image | 删除图片 |
@@ -90,6 +91,7 @@ All URIs are relative to *http://localhost*
  - [course_api.ScanAllCourseResponse](./Models/course_api.ScanAllCourseResponse.md)
  - [course_api.ScanCourseResponse](./Models/course_api.ScanCourseResponse.md)
  - [course_api.UpdateChapterRequest](./Models/course_api.UpdateChapterRequest.md)
+ - [course_api.UpdateChapterTopicScoreRequest](./Models/course_api.UpdateChapterTopicScoreRequest.md)
  - [course_api.UpdateCourseRequest](./Models/course_api.UpdateCourseRequest.md)
  - [ctype.Role](./Models/ctype.Role.md)
  - [image_api.ImageListResponse](./Models/image_api.ImageListResponse.md)

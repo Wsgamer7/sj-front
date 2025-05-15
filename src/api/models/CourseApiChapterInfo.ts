@@ -39,6 +39,12 @@ export interface CourseApiChapterInfo {
      * @memberof CourseApiChapterInfo
      */
     score?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CourseApiChapterInfo
+     */
+    topic_score?: number;
 }
 
 /**
@@ -60,6 +66,7 @@ export function CourseApiChapterInfoFromJSONTyped(json: any, ignoreDiscriminator
         
         'chapter': json['chapter'] == null ? undefined : ModelsChapterModelFromJSON(json['chapter']),
         'score': json['score'] == null ? undefined : json['score'],
+        'topic_score': json['topic_score'] == null ? undefined : json['topic_score'],
     };
 }
 
@@ -76,6 +83,7 @@ export function CourseApiChapterInfoFromJSONTyped(json: any, ignoreDiscriminator
         
         'chapter': ModelsChapterModelToJSON(value['chapter']),
         'score': value['score'],
+        'topic_score': value['topic_score'],
     };
 }
 
