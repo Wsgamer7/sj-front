@@ -198,7 +198,9 @@ function TrueChat({ useCourseData }: { useCourseData: useCourseReturn }) {
               )}
               {tab === "detail" && (
                 <p className="text-sm text-gray-500">
-                  <Markdown>{useCourseData.course?.description || ""}</Markdown>
+                  <Markdown>
+                    {useCourseData.selectedChapter?.description || ""}
+                  </Markdown>
                 </p>
               )}
             </div>
