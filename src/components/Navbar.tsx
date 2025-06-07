@@ -53,6 +53,13 @@ export default function Navbar() {
             <div className="pl-2 text-sm text-gray-500">
               {`${auth.userInfo?.username}`}
             </div>
+            <MenubarItem
+              onClick={() => {
+                window.location.href = `/profile`;
+              }}
+            >
+              修改个人信息
+            </MenubarItem>
             <MenubarSeparator />
             <div className="pl-2 text-xs  text-gray-500">已加入的课程</div>
             <div className="flex flex-col gap-2">
