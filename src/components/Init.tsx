@@ -8,7 +8,7 @@ export default function Init() {
   const router = useRouter();
   useEffect(() => {
     if (!isLogin()) {
-      router.push("/login");
+      // router.push("/login");
       return;
     }
     init();

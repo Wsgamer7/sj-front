@@ -15,7 +15,7 @@ export default function Profile() {
   const [avatarPreview, setAvatarPreview] = useState<string>("");
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <Card>
+      <Card className="w-[400px]">
         <CardHeader>
           <CardTitle>修改个人信息</CardTitle>
         </CardHeader>
@@ -29,9 +29,29 @@ export default function Profile() {
             />
           </div>
           <div className="space-y-1">
-            <Label htmlFor="avatar">头像</Label>
+            <Label>头像</Label>
+            <label htmlFor="avatar">
+              {!avatarPreview && (
+                <div className="w-20 h-20 flex items-center justify-center rounded-full bg-gray-200 text-3xl font-bold cursor-pointer hover:bg-gray-300 transition-all select-none mb-2">
+                  +
+                </div>
+              )}
+              {avatarPreview && (
+                <img
+                  src={avatarPreview}
+                  alt="头像预览"
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: "50%",
+                    marginTop: 8,
+                  }}
+                />
+              )}
+            </label>
             <input
               type="file"
+              className="hidden"
               id="avatar"
               accept="image/*"
               onChange={(e) => {
@@ -41,18 +61,6 @@ export default function Profile() {
                 }
               }}
             />
-            {avatarPreview && (
-              <img
-                src={avatarPreview}
-                alt="头像预览"
-                style={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: "50%",
-                  marginTop: 8,
-                }}
-              />
-            )}
           </div>
         </CardContent>
         <CardFooter>
